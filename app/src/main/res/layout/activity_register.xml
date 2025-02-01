@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#232323">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/retour"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp">
+
+        </ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Créer un compte"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="20dp">
+        </TextView>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Créer un nouveau compte"
+        android:textSize="20dp"
+        android:padding="15dp"
+        android:layout_marginBottom="20dp">
+    </TextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="50dp">
+
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="36dp"
+                android:src="@drawable/face"
+                android:layout_gravity="center_vertical">
+            </ImageView>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Prénom"
+                android:textColor="@android:color/darker_gray"
+                >
+            </EditText>
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:text="Nom"
+            android:layout_marginStart="40dp"
+            android:textColor="@android:color/darker_gray">
+
+        </EditText>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:layout_width="43dp"
+            android:layout_height="36dp"
+            android:src="@drawable/mail"
+            android:layout_gravity="center_vertical">
+        </ImageView>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="E-mail"
+            android:textColor="@android:color/darker_gray">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:layout_width="43dp"
+            android:layout_height="36dp"
+            android:src="@drawable/mdp"
+            android:layout_gravity="center_vertical">
+        </ImageView>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mot de passe"
+            android:textColor="@android:color/darker_gray">
+        </EditText>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="50dp">
+
+        <ImageView
+            android:layout_width="43dp"
+            android:layout_height="36dp"
+            android:src="@drawable/tel"
+            android:layout_gravity="center_vertical">
+        </ImageView>
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mobile"
+            android:textColor="@android:color/darker_gray">
+        </EditText>
+    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="S'inscrire"
+        android:backgroundTint="@android:color/holo_orange_dark"
+        android:textSize="20dp"
+        >
+
+    </Button>
+    </LinearLayout>
+</LinearLayout>

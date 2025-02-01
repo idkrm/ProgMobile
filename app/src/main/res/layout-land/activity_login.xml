@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#232323">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/retour"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp">
+
+        </ImageView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Connectez-vous"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="20dp">
+        </TextView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="100">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="45"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Identifiez-vous"
+            android:textSize="30dp"
+            android:layout_margin="20dp">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/email"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp">
+            </ImageView>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="E-mail"
+                android:textColor="@android:color/darker_gray">
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/cadena"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="5dp">
+            </ImageView>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mot de passe"
+                android:textColor="@android:color/darker_gray">
+            </EditText>
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOT DE PASSE OUBLIE ?"
+            android:background="none"
+            android:textColor="@android:color/holo_blue_dark"
+            android:layout_gravity="right">
+        </Button>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="CONNECTERZ-VOUS"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:padding="20dp">
+            <View
+                android:layout_width="1.5dp"
+                android:layout_height="150dp"
+                android:background="@android:color/darker_gray"
+                android:layout_gravity="center">
+            </View>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="OU"
+                android:textColor="@android:color/darker_gray">
+            </TextView>
+            <View
+                android:layout_width="1.5dp"
+                android:layout_height="150dp"
+                android:background="@android:color/darker_gray"
+                android:layout_gravity="center">
+            </View>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="45"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nouveau sur PowerHome ?"
+                android:textColor="@android:color/darker_gray">
+            </TextView>
+
+            <Button
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="CREE UN COMPTE"
+                android:background="none"
+                android:textColor="@android:color/holo_blue_dark">
+
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="31dp"
+                android:src="@drawable/facebook"
+                android:layout_gravity="center">
+
+            </ImageView>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="none"
+                android:text="Continuer avec Facebook"
+                android:textColor="@android:color/holo_blue_dark">
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
