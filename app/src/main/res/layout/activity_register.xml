@@ -15,6 +15,7 @@
         android:background="#232323">
 
         <ImageView
+            android:id="@+id/retour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/retour"
@@ -135,7 +136,7 @@
             android:layout_gravity="center_vertical">
         </ImageView>
         <Spinner
-            android:id="@+id/spinner1"
+            android:id="@+id/prefixeTel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"/>

@@ -9,16 +9,6 @@
     tools:context=".SplashActivity"
     android:background="@color/white">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textColor="#0C367C"
-        android:textSize="50dp">
-
-    </TextView>
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

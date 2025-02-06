@@ -1,6 +1,14 @@
 package iut.dam.powerhome;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class RegisterActivity extends AppCompatActivity {
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +28,24 @@ public class RegisterActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+
+        Spinner dropdown = findViewById(R.id.prefixeTel);
+        String[] items = new String[]{"+33", "+44", "+34"};
+        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
+        //There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        //set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
+
+        back=findViewById(R.id.retour);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(intent);
+            }
         });
     }
 }
