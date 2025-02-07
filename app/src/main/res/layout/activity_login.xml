@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Connectez-vous"
+            android:text="@string/connectez_vous"
             android:textColor="@color/white"
             android:gravity="center_vertical"
             android:textSize="20dp">
@@ -36,8 +36,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Identifiez-vous"
-        android:textSize="30dp"
+        android:text="@string/identifiez_vous"
+        android:textSize="20dp"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginStart="20dp">
@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="50dp"
                 android:text="E-mail"
+                android:backgroundTint="@android:color/darker_gray"
                 android:textColor="@android:color/darker_gray">
             </EditText>
         </LinearLayout>
@@ -86,8 +87,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mot de passe"
-                android:textColor="@android:color/darker_gray">
+                android:text="@string/mdp"
+                android:textColor="@android:color/darker_gray"
+                android:backgroundTint="@android:color/darker_gray">
             </EditText>
         </LinearLayout>
     </LinearLayout>
@@ -96,7 +98,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MOT DE PASSE OUBLIE ?"
+        android:text="@string/mdp_oublie"
+        android:layout_marginEnd="10dp"
         android:background="@android:color/transparent"
         android:textColor="@android:color/holo_blue_dark"
         android:layout_gravity="right">
@@ -104,13 +107,16 @@
 
     <Button
         android:id="@+id/connexion"
+        android:background="@drawable/rect"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="CONNECTEZ-VOUS"
-        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/connect"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="20dp"
+        android:textColor="#FFFF"
+        >
     </Button>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -121,7 +127,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nouveau sur PowerHome ?"
+            android:text="@string/nv"
             android:textColor="@android:color/darker_gray">
         </TextView>
 
@@ -129,7 +135,8 @@
             android:id="@+id/creerCompte"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="CREE UN COMPTE"
+            android:text="@string/creer_compte"
+            android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
             android:textColor="@android:color/holo_blue_dark">
 
@@ -150,7 +157,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="   OU   "
+            android:text="@string/or"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:textColor="@android:color/darker_gray">
         </TextView>
         <View
@@ -178,7 +187,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:text="Continuer avec Facebook"
+            android:text="@string/facebook"
+            android:layout_marginStart="5dp"
             android:textColor="@android:color/holo_blue_dark">
         </Button>
     </LinearLayout>

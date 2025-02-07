@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook">Continuer avec Facebook</string>
+    <string name="nv">Nouveau sur PowerHome ?</string>
+    <string name="creer_compte">CREER UN COMPTE</string>
+    <string name="connect">SE CONNECTER</string>
+    <string name="mdp">Mot de passe</string>
+    <string name="mdp_oublie">MOT DE PASSE OUBLIE ?</string>
+    <string name="identifiez_vous">Identifiez-vous</string>
+    <string name="or">"  OU  "</string>
+    <string name="connectez_vous">Connectez-vous</string>
+    <string name="sign_up">Créer un compte</string>
+    <string name="create_account">Créer un nouveau compte</string>
+    <string name="name">Prénom</string>
+    <string name="surname">Nom</string>
+    <string name="phone">Mobile</string>
+</resources>

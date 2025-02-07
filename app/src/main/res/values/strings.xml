@@ -1,3 +1,17 @@
 <resources>
-    <string name="app_name">PowerHome</string>
+    <string name="app_name" translatable="false">PowerHome</string>
+    <string name="facebook">Continue with Facebook</string>
+    <string name="nv">New on PowerHome ?</string>
+    <string name="creer_compte">CREATE AN ACCOUNT</string>
+    <string name="connect">CONNECT</string>
+    <string name="mdp">Password</string>
+    <string name="mdp_oublie">FORGOT PASSWORD ?</string>
+    <string name="identifiez_vous">Sign in</string>
+    <string name="or">  OR  </string>
+    <string name="connectez_vous">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="create_account">Create an account</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="phone">Phone</string>
 </resources>

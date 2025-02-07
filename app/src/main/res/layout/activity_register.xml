@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Créer un compte"
+            android:text="@string/sign_up"
             android:textColor="@color/white"
             android:gravity="center_vertical"
             android:textSize="20dp">
@@ -38,10 +38,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Créer un nouveau compte"
+        android:text="@string/create_account"
         android:textSize="20dp"
         android:padding="15dp"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="20dp"
+        android:textColor="@android:color/darker_gray">
     </TextView>
 
     <LinearLayout
@@ -66,8 +67,9 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Prénom"
+                android:text="@string/name"
                 android:textColor="@android:color/darker_gray"
+                android:backgroundTint="@android:color/darker_gray"
                 >
             </EditText>
         </LinearLayout>
@@ -76,9 +78,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
-            android:text="Nom"
+            android:text="@string/surname"
             android:layout_marginStart="40dp"
-            android:textColor="@android:color/darker_gray">
+            android:textColor="@android:color/darker_gray"
+            android:backgroundTint="@android:color/darker_gray">
 
         </EditText>
 
@@ -100,7 +103,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="E-mail"
-            android:textColor="@android:color/darker_gray">
+            android:textColor="@android:color/darker_gray"
+            android:backgroundTint="@android:color/darker_gray">
         </EditText>
     </LinearLayout>
     <LinearLayout
@@ -119,7 +123,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mot de passe"
+            android:text="@string/mdp"
             android:textColor="@android:color/darker_gray">
         </EditText>
     </LinearLayout>
@@ -143,17 +147,18 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mobile"
-            android:textColor="@android:color/darker_gray">
+            android:text="@string/phone"
+            android:textColor="@android:color/darker_gray"
+            android:backgroundTint="@android:color/darker_gray">
         </EditText>
     </LinearLayout>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="S'inscrire"
-        android:backgroundTint="@android:color/holo_orange_dark"
+        android:text="@string/sign_up"
+        android:background="@drawable/rect"
         android:textSize="20dp"
-        >
+        android:textColor="#FFFF">
 
     </Button>
     </LinearLayout>
