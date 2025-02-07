@@ -50,8 +50,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String erreur;
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                intent.putExtra("Mail", mail.getText().toString());
-                intent.putExtra("Mdp", mdp.getText().toString());
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Mail", mail.getText().toString());
+                bundle.putSerializable("Mdp", mdp.getText().toString());
+                intent.putExtras(bundle);
+
                 if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
                         startActivity(intent);
                 }
