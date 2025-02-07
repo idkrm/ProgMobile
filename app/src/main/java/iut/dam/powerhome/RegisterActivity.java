@@ -33,10 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Spinner dropdown = findViewById(R.id.prefixeTel);
         String[] items = new String[]{"+33", "+44", "+34"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        //set the spinners adapter to the previously created one.
         dropdown.setAdapter(adapter);
 
         back=findViewById(R.id.retour);

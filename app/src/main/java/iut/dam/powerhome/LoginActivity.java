@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class LoginActivity extends AppCompatActivity {
     private Button creerCompte;
     private Button connecter;
+    private EditText mail;
+    private EditText mdp;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,11 +42,23 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         connecter=findViewById(R.id.connexion);
+        mail=findViewById(R.id.mail);
+        mdp=findViewById(R.id.mdp);
+
         connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String erreur;
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                startActivity(intent);
+                intent.putExtra("Mail", mail.getText().toString());
+                intent.putExtra("Mdp", mdp.getText().toString());
+                if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
+                        startActivity(intent);
+                }
+                else{
+                    Toast errorToast = Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT);
+                    errorToast.show();
+                }
             }
         });
     }
