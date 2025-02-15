@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,34 +34,45 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
             layout = inflater.inflate(itemResourceId, parent, false);
         }
 
+        // recupere les views
         TextView nameTV = (TextView) layout.findViewById(R.id.nomHabitant);
-        ImageView imageIM = (ImageView) layout.findViewById(R.id.img_equip);
-        ImageView imageIM2 = (ImageView) layout.findViewById(R.id.img_equip2);
-        ImageView imageIM3 = (ImageView) layout.findViewById(R.id.img_equip3);
-        ImageView imageIM4 = (ImageView) layout.findViewById(R.id.img_equip4);
         TextView etageTV = (TextView) layout.findViewById(R.id.etage);
         TextView nbEquip = (TextView) layout.findViewById(R.id.nb_equip);
 
+        // set les infos (nom, etage et nombre d'equipement
+        nameTV.setText(items.get(position).getResidentName());
+        etageTV.setText(String.valueOf(items.get(position).getFloor()));
+        nbEquip.setText(items.get(position).getAppliances().size() > 1 ?
+                items.get(position).getAppliances().size() + " équipements" :
+                items.get(position).getAppliances().size() + " équipement");
 
-        nameTV.setText(items.get(position).residentName);
-        etageTV.setText(String.valueOf(items.get(position).floor));
-        nbEquip.setText(items.get(position).appliances.size() > 1 ?
-                items.get(position).appliances.size() + " équipements" :
-                items.get(position).appliances.size() + " équipement");
+        // recupere le layout des images des equipements
+        LinearLayout imgEquip = (LinearLayout) layout.findViewById(R.id.listeEquip);
+        LinearLayout.LayoutParams layoutparams = new LinearLayout.LayoutParams(50, 50);
+        layoutparams.setMargins(0,5,10,0);
 
+        imgEquip.removeAllViews(); // suppr les anciennes images
 
-        for (int i = 0; i < items.get(position).appliances.size(); i++) {
-            Appliance appliance = items.get(position).appliances.get(i);
-            if (i == 0 && appliance.getName().equals("Aspirateur")) {
-                imageIM.setImageResource(R.drawable.aspi);
-            } else if (i == 1 && appliance.getName().equals("Fer")) {
-                imageIM2.setImageResource(R.drawable.repasser);
-            } else if (i == 2 && appliance.getName().equals("Climatiseur")) {
-                imageIM4.setImageResource(R.drawable.climatiseur);
-            } else if (i == 3 && appliance.getName().equals("Machine")) {
-                imageIM3.setImageResource(R.drawable.machine);
-            }
+        for (Appliance a : items.get(position).getAppliances()) {
+            ImageView img = new ImageView(this.getContext()); // cree dynamiquement une imageview
+
+            // choisis l'image correspondant a l'equipement
+            if (a.getName().equals("Aspirateur"))
+                img.setImageResource(R.drawable.aspi);
+            else if (a.getName().equals("Fer"))
+                img.setImageResource(R.drawable.repasser);
+            else if (a.getName().equals("Climatiseur"))
+                img.setImageResource(R.drawable.climatiseur);
+            else if (a.getName().equals("Machine"))
+                img.setImageResource(R.drawable.machine);
+
+            imgEquip.addView(img, layoutparams); // rajoute l'image dans le layout
         }
+
+        layout.setOnClickListener(v ->
+                Toast.makeText(HabitatAdapter.this.getContext(), items.get(position).getResidentName(),
+                        Toast.LENGTH_SHORT).show()
+        );
         return layout;
     }
 }

@@ -6,70 +6,45 @@
     android:gravity="center_horizontal"
     android:layout_marginTop="20dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@drawable/contour"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginBottom="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nomHabitant"
+            android:text="Gaëtan Leclair"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="5dp">
+        </TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nb_equip"
+            android:text="4 équipements"
+            android:layout_marginEnd="5dp"
+            android:layout_below="@+id/nomHabitant">
+        </TextView>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginEnd="30dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/nomHabitant"
-                android:text="Gaëtan Leclair"
-                android:textColor="@android:color/black"
-                android:layout_marginBottom="5dp">
-            </TextView>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/nb_equip"
-                    android:text="4 équipements"
-                    android:layout_marginEnd="5dp">
-                </TextView>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:id="@+id/img_equip"
-                    android:layout_marginEnd="5dp">
-                </ImageView>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:id="@+id/img_equip2"
-                    android:layout_marginEnd="5dp">
-                </ImageView>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:id="@+id/img_equip3"
-                    android:layout_marginEnd="5dp">
-                </ImageView>
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:id="@+id/img_equip4">
-                </ImageView>
-            </LinearLayout>
+            android:layout_toEndOf="@+id/nb_equip"
+            android:layout_below="@+id/nomHabitant"
+            android:id="@+id/listeEquip"
+            android:orientation="horizontal">
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/contour"
             android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:layout_gravity="right">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -92,6 +67,6 @@
                 android:gravity="center">
             </TextView>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Habitat {
-    int id;
-    String residentName;
-    int floor;
-    double area;
-    List<Appliance> appliances = new ArrayList<>();
+    private int id;
+    private String residentName;
+    private int floor;
+    private double area;
+    private List<Appliance> appliances = new ArrayList<>();
 
     public Habitat(int id, String name, int floor, double area, List<Appliance> a){
         this.id = id;
@@ -18,5 +18,23 @@ public class Habitat {
         this.appliances.addAll(a);
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public String getResidentName() {
+        return residentName;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public List<Appliance> getAppliances() {
+        return appliances;
+    }
 }
