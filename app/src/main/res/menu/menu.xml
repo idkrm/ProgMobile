@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_connexion"
+        android:title="Connexion"
+        android:icon="@drawable/cadena"/>
+    <item
+        android:id="@+id/menu_inscription"
+        android:title="Inscription"
+        android:icon="@drawable/face"/>
+</menu>

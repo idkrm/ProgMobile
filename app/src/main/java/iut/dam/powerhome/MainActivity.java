@@ -7,10 +7,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        Intent i = getIntent();
-        String mail = i.getStringExtra ( "Mail");
-        String mdp = i.getStringExtra ( "Mdp");
+        DrawerLayout drawer = findViewById(R.id.main);
+        NavigationView nav = findViewById(R.id.nav_view);
 
-        text=findViewById(R.id.msg);
-        text.setText ("Hello '" + mail + "', your passowrd is '" + mdp + "'.");
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, "Open", "Close");
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }
