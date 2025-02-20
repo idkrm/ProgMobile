@@ -48,21 +48,22 @@ public class LoginActivity extends AppCompatActivity {
         connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String erreur;
+//                String erreur;
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Mail", mail.getText().toString());
-                bundle.putSerializable("Mdp", mdp.getText().toString());
-                intent.putExtras(bundle);
-
-                if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
-                        startActivity(intent);
-                }
-                else{
-                    Toast errorToast = Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT);
-                    errorToast.show();
-                }
+//
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("Mail", mail.getText().toString());
+//                bundle.putSerializable("Mdp", mdp.getText().toString());
+//                intent.putExtras(bundle);
+//
+//                if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
+//                        startActivity(intent);
+//                }
+//                else{
+//                    Toast errorToast = Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT);
+//                    errorToast.show();
+//                }
+                startActivity(intent);
             }
         });
     }
