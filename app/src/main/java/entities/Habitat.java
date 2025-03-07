@@ -1,5 +1,9 @@
-package iut.dam.powerhome;
+package entities;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,20 @@ public class Habitat {
         this.floor = floor;
         this.area = area;
         this.appliances.addAll(a);
+    }
+
+    public static Habitat getFromJson(String json){
+        Gson gson = new Gson();
+        Habitat obj = gson.fromJson(json, Habitat.class);
+        return obj;
+    }
+
+    public static List<Habitat> getListFromJson(String json) {
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<Habitat>>() {
+        }.getType();
+        List<Habitat> list = gson.fromJson(json, type);
+        return list;
     }
 
     public int getId() {

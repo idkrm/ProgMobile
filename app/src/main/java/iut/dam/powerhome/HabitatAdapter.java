@@ -13,6 +13,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import entities.Appliance;
+import entities.Habitat;
+
 public class HabitatAdapter extends ArrayAdapter<Habitat> {
     Activity activity;
     int itemResourceId;

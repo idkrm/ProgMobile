@@ -1,16 +1,27 @@
-package iut.dam.powerhome;
+package entities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Booking;
 
 public class Appliance {
     private int id;
     private String name;
     private String reference;
     private int wattage;
+    public List<Booking> bookings;
 
-    public Appliance(int id, String name, String reference, int wat){
+    public Appliance() {
+        bookings = new ArrayList<>();
+    }
+
+    public Appliance(int id, String name, String reference, int wattage) {
         this.id = id;
         this.name = name;
         this.reference = reference;
-        this.wattage = wat;
+        this.wattage = wattage;
+        bookings = new ArrayList<>();
     }
 
     public int getId() {

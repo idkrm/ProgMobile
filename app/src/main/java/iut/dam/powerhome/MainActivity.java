@@ -1,11 +1,14 @@
 package iut.dam.powerhome;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,12 +22,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private FragmentManager fm;
+    String urlString = "http://10.125.132.129/powerhome_server/getHabitats.php";
+    ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         nav.setNavigationItemSelectedListener(this);
         nav.getMenu().performIdentifierAction(R.id.menu_connexion, 0);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getRemoteHabitats();
     }
 
     @Override
@@ -73,5 +83,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void getRemoteHabitats() {
+        String urlString = "http://10.125.132.129/powerhome/getHabitats.php";
+        Ion.with(this)
+                .load(urlString)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        pDialog.dismiss();
+                        if (result == null)
+                            Log.d("TAG", "No response from the server!!!");
+                        else {
+                            // Traitement de result
+                            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

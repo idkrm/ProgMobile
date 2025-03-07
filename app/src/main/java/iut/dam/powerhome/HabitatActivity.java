@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import entities.Appliance;
+import entities.Habitat;
+
 public class HabitatActivity extends AppCompatActivity {
 
     @Override

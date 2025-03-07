@@ -9,6 +9,8 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 drawerlayout = "1.1.1"
 materialVersion = "1.5.0"
+ion = "3.1.0"
+gson = "2.12.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -20,6 +22,8 @@ activity = { group = "androidx.activity", name = "activity", version.ref = "acti
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout", version.ref = "drawerlayout" }
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
+ion = { group = "com.koushikdutta.ion", name = "ion", version.ref = "ion" }
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
