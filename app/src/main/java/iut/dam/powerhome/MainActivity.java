@@ -28,9 +28,13 @@ import com.koushikdutta.ion.Response;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private ActionBarDrawerToggle toggle;
     private FragmentManager fm;
+    private DrawerLayout drawer;
+    private NavigationView nav;
     String urlString = "http://10.125.132.129/powerhome_server/getHabitats.php";
     ProgressDialog pDialog;
 
@@ -45,42 +49,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return insets;
         });
 
-        DrawerLayout drawer = findViewById(R.id.drawer);
-        NavigationView nav = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer);
+        nav = findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close);
+        toggle = new ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
 
         fm = getSupportFragmentManager();
         nav.setNavigationItemSelectedListener(this);
-        nav.getMenu().performIdentifierAction(R.id.menu_connexion, 0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getRemoteHabitats();
+        nav.getMenu().performIdentifierAction(R.id.menu_habitats, 0);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        DrawerLayout drawer = findViewById(R.id.drawer);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.open, R.string.close);
-
-        if(toggle.onOptionsItemSelected(item))
-            return true;
-        return false;
+        return toggle.onOptionsItemSelected(item);
     }
-
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_connexion){
-            fm.beginTransaction().replace(R.id.contentFL,
-                    new ConnexionFragment()).commit();
-        } else if (item.getItemId() == R.id.menu_inscription) {
-            fm.beginTransaction().replace(R.id.contentFL,
-                    new InscriptionFragment()).commit();
+    public boolean onNavigationItemSelected(MenuItem item){
+        if (item.getItemId() == R.id.menu_habitats){
+            fm.beginTransaction().replace(R.id.contentFL, new HabitatFragment()).commit();
         }
-
-        DrawerLayout drawer = findViewById(R.id.drawer);
+        else if (item.getItemId() == R.id.menu_monhabitat){
+            fm.beginTransaction().replace(R.id.contentFL, new MonHabitatFragment()).commit();
+        }
+        else if (item.getItemId() == R.id.menu_requetes){
+            fm.beginTransaction().replace(R.id.contentFL, new RequetesFragment()).commit();
+        }else if (item.getItemId() == R.id.menu_param){
+            fm.beginTransaction().replace(R.id.contentFL, new ParametresFragment()).commit();
+        }
+        else if (item.getItemId() == R.id.menu_deco){
+            fm.beginTransaction().replace(R.id.contentFL, new InscriptionFragment()).commit();
+        }
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

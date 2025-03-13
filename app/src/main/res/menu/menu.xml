@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/menu_connexion"
-        android:title="Connexion"
-        android:icon="@drawable/cadena"/>
+        android:id="@+id/menu_habitats"
+        android:title="Habitats"/>
     <item
-        android:id="@+id/menu_inscription"
-        android:title="Inscription"
+        android:id="@+id/menu_monhabitat"
+        android:title="Mon habitat"
         android:icon="@drawable/face"/>
+    <item
+        android:id="@+id/menu_requetes"
+        android:title="Mes requêtes"/>
+    <item
+        android:id="@+id/menu_param"
+        android:title="Paramètres"/>
+    <item
+        android:id="@+id/menu_deco"
+        android:title="Se déconnecter"/>
+
 </menu>

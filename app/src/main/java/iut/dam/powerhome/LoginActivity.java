@@ -24,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -48,22 +49,22 @@ public class LoginActivity extends AppCompatActivity {
         connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String erreur;
+
                 Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-//
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("Mail", mail.getText().toString());
-//                bundle.putSerializable("Mdp", mdp.getText().toString());
-//                intent.putExtras(bundle);
-//
-//                if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
-//                        startActivity(intent);
-//                }
-//                else{
-//                    Toast errorToast = Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT);
-//                    errorToast.show();
-//                }
-                startActivity(intent);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Mail", mail.getText().toString());
+                bundle.putSerializable("Mdp", mdp.getText().toString());
+                intent.putExtras(bundle);
+
+                if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
+                        startActivity(intent);
+                }
+                else{
+                    Toast errorToast = Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT);
+                    errorToast.show();
+                }
+//                startActivity(intent);
             }
         });
     }
