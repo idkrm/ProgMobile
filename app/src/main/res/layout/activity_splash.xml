@@ -15,18 +15,21 @@
     android:gravity="center">
 
     <ImageView
+        android:id="@+id/logo"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/logo_edf">
+        android:src="@drawable/vrailogo">
 
     </ImageView>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Developped by Priscilla CHEN"
+        android:text="EcoPower"
+        android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:textSize="15dp"/>
+        android:textColor="#213442"
+        android:textSize="40dp"/>
 </LinearLayout>
 
 </LinearLayout>
