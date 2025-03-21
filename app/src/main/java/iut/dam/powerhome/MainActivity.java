@@ -1,6 +1,8 @@
 package iut.dam.powerhome;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,7 +22,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ActionBarDrawerToggle toggle;
@@ -64,17 +65,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item){
         if (item.getItemId() == R.id.menu_habitats){
             fm.beginTransaction().replace(R.id.contentFL, new HabitatFragment()).commit();
+            getSupportActionBar().setTitle("Habitats");
         }
         else if (item.getItemId() == R.id.menu_monhabitat){
             fm.beginTransaction().replace(R.id.contentFL, new MonHabitatFragment()).commit();
+            getSupportActionBar().setTitle("Mon Habitat");
         }
-        else if (item.getItemId() == R.id.menu_requetes){
+        else if (item.getItemId() == R.id.menu_notif){
             fm.beginTransaction().replace(R.id.contentFL, new RequetesFragment()).commit();
+            getSupportActionBar().setTitle("Mes notifications");
         }else if (item.getItemId() == R.id.menu_param){
             fm.beginTransaction().replace(R.id.contentFL, new ParametresFragment()).commit();
+            getSupportActionBar().setTitle("Paramètres");
         }
         else if (item.getItemId() == R.id.menu_deco){
-            fm.beginTransaction().replace(R.id.contentFL, new InscriptionFragment()).commit();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish();
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -2,19 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_habitats"
-        android:title="Habitats"/>
+        android:title="Habitats"
+        android:icon="@drawable/img_habitats"/>
     <item
         android:id="@+id/menu_monhabitat"
         android:title="Mon habitat"
         android:icon="@drawable/face"/>
     <item
-        android:id="@+id/menu_requetes"
-        android:title="Mes requêtes"/>
+        android:id="@+id/menu_notif"
+        android:title="Mes notifications"
+        android:icon="@drawable/img_notif"/>
     <item
         android:id="@+id/menu_param"
-        android:title="Paramètres"/>
+        android:title="Paramètres"
+        android:icon="@drawable/img_param"/>
     <item
         android:id="@+id/menu_deco"
-        android:title="Se déconnecter"/>
+        android:title="Se déconnecter"
+        android:icon="@drawable/img_deco"/>
 
 </menu>

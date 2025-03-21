@@ -10,9 +10,6 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -32,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 0.0f, 1.0f, // Zoom de 0% à 100% (Y)
                 Animation.RELATIVE_TO_SELF, 0.5f, // Le point de pivot pour l'animation (milieu de l'image)
                 Animation.RELATIVE_TO_SELF, 0.5f);
-        zoomAnimation.setDuration(700); // Durée de l'animation
+        zoomAnimation.setDuration(1000); // Durée de l'animation
         zoomAnimation.setFillAfter(true); // Maintenir la taille après l'animation
         zoomAnimation.setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator()); // Effet d'accélération et décélération
 

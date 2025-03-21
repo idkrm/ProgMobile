@@ -42,7 +42,7 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
         TextView etageTV = (TextView) layout.findViewById(R.id.etage);
         TextView nbEquip = (TextView) layout.findViewById(R.id.nb_equip);
 
-        // set les infos (nom, etage et nombre d'equipement
+        // set les infos (nom, etage et nombre d'equipement)
         nameTV.setText(items.get(position).getResidentName());
         etageTV.setText(String.valueOf(items.get(position).getFloor()));
         nbEquip.setText(items.get(position).getAppliances().size() > 1 ?

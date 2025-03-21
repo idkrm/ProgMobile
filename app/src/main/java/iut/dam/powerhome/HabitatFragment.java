@@ -1,64 +1,59 @@
 package iut.dam.powerhome;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HabitatFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import entities.Appliance;
+import entities.Habitat;
+
 public class HabitatFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HabitatFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HabitatFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HabitatFragment newInstance(String param1, String param2) {
-        HabitatFragment fragment = new HabitatFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        // Infle le layout pour le fragment
+        View rootView = inflater.inflate(R.layout.fragment_habitat, container, false);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_habitat, container, false);
+        // Gérer les insets pour Edge-to-Edge UI
+        ViewCompat.setOnApplyWindowInsetsListener(rootView.findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        // Référencer le ListView et l'adapter
+        ListView list = rootView.findViewById(R.id.listHab);
+        List<Habitat> items = new ArrayList<>();
+
+        // Création des Appliances et Habitats
+        Appliance aspi = new Appliance(1, "Aspirateur", "SuperAspi", 50);
+        Appliance fer = new Appliance(2, "Fer", "SuperFer", 10);
+        Appliance machine = new Appliance(3, "Machine", "SuperMachine", 100);
+        Appliance clim = new Appliance(4, "Climatiseur", "SuperClim", 120);
+
+        items.add(new Habitat(1, "Lucie Yan", 5, 100, new ArrayList<>(Arrays.asList(aspi, fer))));
+        items.add(new Habitat(2, "Lucas Lablanche", 2, 100, new ArrayList<>(Arrays.asList(aspi, fer, machine))));
+        items.add(new Habitat(3, "Irene Xu", 1, 100, new ArrayList<>(Arrays.asList(fer))));
+        items.add(new Habitat(4, "Priscilla Chen", 10, 100, new ArrayList<>(Arrays.asList(clim))));
+
+        // Assigner l'adaptateur à la liste
+        HabitatAdapter adapter = new HabitatAdapter(getActivity(), R.layout.item_habitat, items);
+        list.setAdapter(adapter);
+
+        return rootView;  // Retourne la vue pour le fragment
     }
 }

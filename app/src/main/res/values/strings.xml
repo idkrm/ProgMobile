@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">PowerHome</string>
+    <string name="app_name" translatable="false">EcoPower</string>
     <string name="facebook">Continue with Facebook</string>
     <string name="nv">New on PowerHome ?</string>
     <string name="creer_compte">CREATE AN ACCOUNT</string>
