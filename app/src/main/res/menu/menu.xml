@@ -13,9 +13,9 @@
         android:title="Mes notifications"
         android:icon="@drawable/img_notif"/>
     <item
-        android:id="@+id/menu_param"
-        android:title="Paramètres"
-        android:icon="@drawable/img_param"/>
+        android:id="@+id/menu_preference"
+        android:title="Mes préférences"
+        android:icon="@drawable/img_preference"/>
     <item
         android:id="@+id/menu_deco"
         android:title="Se déconnecter"

@@ -1,4 +1,4 @@
-package iut.dam.powerhome;
+package iut.dam.powerhome.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +19,8 @@ import java.util.List;
 
 import entities.Appliance;
 import entities.Habitat;
+import iut.dam.powerhome.adapters.HabitatAdapter;
+import iut.dam.powerhome.R;
 
 public class HabitatFragment extends Fragment {
 

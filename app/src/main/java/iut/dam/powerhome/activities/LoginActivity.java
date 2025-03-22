@@ -1,4 +1,4 @@
-package iut.dam.powerhome;
+package iut.dam.powerhome.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -14,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.Objects;
+import iut.dam.powerhome.R;
 
 public class LoginActivity extends AppCompatActivity {
     private Button creerCompte;

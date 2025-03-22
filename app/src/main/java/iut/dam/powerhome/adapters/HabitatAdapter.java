@@ -1,4 +1,4 @@
-package iut.dam.powerhome;
+package iut.dam.powerhome.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -15,6 +15,7 @@ import java.util.List;
 
 import entities.Appliance;
 import entities.Habitat;
+import iut.dam.powerhome.R;
 
 public class HabitatAdapter extends ArrayAdapter<Habitat> {
     Activity activity;

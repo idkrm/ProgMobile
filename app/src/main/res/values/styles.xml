@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CalendarDateText">
+        <item name="android:textColor">@color/green</item> <!-- Par défaut, les dates sont en vert -->
+    </style>
+</resources>

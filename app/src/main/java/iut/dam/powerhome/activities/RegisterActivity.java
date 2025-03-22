@@ -1,12 +1,9 @@
-package iut.dam.powerhome;
+package iut.dam.powerhome.activities;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
@@ -15,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import iut.dam.powerhome.R;
 
 public class RegisterActivity extends AppCompatActivity {
     private ImageView back;

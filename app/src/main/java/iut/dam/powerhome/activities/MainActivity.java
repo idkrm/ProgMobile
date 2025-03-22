@@ -1,8 +1,7 @@
-package iut.dam.powerhome;
+package iut.dam.powerhome.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,6 +20,12 @@ import androidx.fragment.app.FragmentManager;
 import com.google.android.material.navigation.NavigationView;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import iut.dam.powerhome.R;
+import iut.dam.powerhome.fragments.HabitatFragment;
+import iut.dam.powerhome.fragments.MonHabitatFragment;
+import iut.dam.powerhome.fragments.NotificationsFragment;
+import iut.dam.powerhome.fragments.PreferenceFragment;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -72,11 +77,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportActionBar().setTitle("Mon Habitat");
         }
         else if (item.getItemId() == R.id.menu_notif){
-            fm.beginTransaction().replace(R.id.contentFL, new RequetesFragment()).commit();
+            fm.beginTransaction().replace(R.id.contentFL, new NotificationsFragment()).commit();
             getSupportActionBar().setTitle("Mes notifications");
-        }else if (item.getItemId() == R.id.menu_param){
-            fm.beginTransaction().replace(R.id.contentFL, new ParametresFragment()).commit();
-            getSupportActionBar().setTitle("Paramètres");
+        }else if (item.getItemId() == R.id.menu_preference){
+            fm.beginTransaction().replace(R.id.contentFL, new PreferenceFragment()).commit();
+            getSupportActionBar().setTitle("Mes préférences");
         }
         else if (item.getItemId() == R.id.menu_deco){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
