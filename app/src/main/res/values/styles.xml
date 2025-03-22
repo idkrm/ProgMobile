@@ -3,4 +3,8 @@
     <style name="CalendarDateText">
         <item name="android:textColor">@color/green</item> <!-- Par défaut, les dates sont en vert -->
     </style>
+
+    <style name="DrawerIcon" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/white</item>
+    </style>
 </resources>

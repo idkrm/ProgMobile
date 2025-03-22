@@ -2,7 +2,11 @@ package iut.dam.powerhome.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -70,18 +74,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item){
         if (item.getItemId() == R.id.menu_habitats){
             fm.beginTransaction().replace(R.id.contentFL, new HabitatFragment()).commit();
-            getSupportActionBar().setTitle("Habitats");
+            couleurTexte("Habitats");
         }
         else if (item.getItemId() == R.id.menu_monhabitat){
             fm.beginTransaction().replace(R.id.contentFL, new MonHabitatFragment()).commit();
-            getSupportActionBar().setTitle("Mon Habitat");
+            couleurTexte("Mon habitat");
         }
         else if (item.getItemId() == R.id.menu_notif){
             fm.beginTransaction().replace(R.id.contentFL, new NotificationsFragment()).commit();
-            getSupportActionBar().setTitle("Mes notifications");
+            couleurTexte("Mes notifications");
+
         }else if (item.getItemId() == R.id.menu_preference){
             fm.beginTransaction().replace(R.id.contentFL, new PreferenceFragment()).commit();
-            getSupportActionBar().setTitle("Mes préférences");
+            couleurTexte("Mes préférences");
         }
         else if (item.getItemId() == R.id.menu_deco){
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -92,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    private void couleurTexte(String s){
+        SpannableString spannableString = new SpannableString(s);
+        spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        getSupportActionBar().setTitle(spannableString);
+    }
     public void getRemoteHabitats() {
         String urlString = "http://10.125.132.129/powerhome/getHabitats.php";
         Ion.with(this)

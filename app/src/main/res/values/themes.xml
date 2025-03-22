@@ -3,6 +3,7 @@
     <style name="Base.Theme.PowerHome" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#232323</item> <!-- Couleur principale -->
         <item name="colorOnPrimary">#FFFFFF</item> <!-- Couleur du texte -->
+        <item name="drawerArrowStyle">@style/DrawerIcon</item>
     </style>
 
     <style name="Theme.PowerHome" parent="Base.Theme.PowerHome" />
