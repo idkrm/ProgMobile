@@ -14,7 +14,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
+
 import iut.dam.powerhome.R;
+import entities.User;
+import iut.dam.powerhome.database.JsonDatabase;
+import iut.dam.powerhome.utils.PasswordUtils;
 
 public class LoginActivity extends AppCompatActivity {
     private Button creerCompte;
@@ -38,40 +43,55 @@ public class LoginActivity extends AppCompatActivity {
             return insets;
         });
 
-        creerCompte=findViewById(R.id.creerCompte);
+        creerCompte = findViewById(R.id.creerCompte);
         creerCompte.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
 
-        connecter=findViewById(R.id.connexion);
-        mail=findViewById(R.id.mail);
-        mdp=findViewById(R.id.mdp);
+        connecter = findViewById(R.id.connexion);
+        mail = findViewById(R.id.mail);
+        mdp = findViewById(R.id.mdp);
 
         connecter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String email = mail.getText().toString().trim();
+                String password = mdp.getText().toString().trim();
 
-                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("Mail", mail.getText().toString());
-                bundle.putSerializable("Mdp", mdp.getText().toString());
-                intent.putExtras(bundle);
-
-                if(mail.getText().toString().equals("abcd") && mdp.getText().toString().equals("EFGH")){
-                        startActivity(intent);
+                // Valider les champs
+                if (email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-                else{
-                    Toast errorToast = Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT);
-                    errorToast.show();
+
+                // Lire les utilisateurs depuis le fichier JSON
+                JsonDatabase jsonDatabase = new JsonDatabase(LoginActivity.this);
+                List<User> users = jsonDatabase.readUsers();
+
+                // Vérifier si l'utilisateur existe
+                boolean isAuthenticated = false;
+                for (User user : users) {
+                    if (user.getEmail().equalsIgnoreCase(email) && PasswordUtils.checkPassword(password, user.getPassword())) {
+                        isAuthenticated = true;
+                        break;
+                    }
                 }
-//                startActivity(intent);
+
+                // Rediriger l'utilisateur ou afficher un message d'erreur
+                if (isAuthenticated) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Mail", email);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
-
 }

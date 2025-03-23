@@ -105,6 +105,7 @@
 
         <EditText
             android:id="@+id/editTextMail"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
@@ -128,6 +129,7 @@
 
         <EditText
             android:id="@+id/editTextPassword"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/mdp"
@@ -154,6 +156,7 @@
             android:spinnerMode="dropdown"/>
         <EditText
             android:id="@+id/editTextPhone"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/phone"

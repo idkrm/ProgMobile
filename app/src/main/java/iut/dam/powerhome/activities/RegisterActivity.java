@@ -16,17 +16,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import iut.dam.powerhome.database.DataBaseHelper;
+import entities.User;
 import iut.dam.powerhome.utils.PasswordUtils;
 import iut.dam.powerhome.R;
 import iut.dam.powerhome.utils.ValidationUtils;
+import iut.dam.powerhome.database.JsonDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private ImageView back;
     private EditText editTextName, editTextSurname, editTextEmail, editTextPassword, editTextPhone;
     private Spinner spinnerPrefix;
     private Button buttonSignUp;
-    private DataBaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +42,18 @@ public class RegisterActivity extends AppCompatActivity {
             return insets;
         });
 
-
+        // Initialiser le Spinner pour les préfixes téléphoniques
         spinnerPrefix = findViewById(R.id.prefixeTel);
         String[] items = new String[]{"+33", "+44", "+34"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         spinnerPrefix.setAdapter(adapter);
 
-        back=findViewById(R.id.retour);
+        // Bouton de retour
+        back = findViewById(R.id.retour);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -65,34 +66,24 @@ public class RegisterActivity extends AppCompatActivity {
         editTextPhone = findViewById(R.id.editTextPhone);
         buttonSignUp = findViewById(R.id.btnSignup);
 
-        // Initialiser DatabaseHelper
-        dbHelper = new DataBaseHelper(this);
-
-        // Gérer le clic sur le bouton "Sign Up"
         buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Récupérer les valeurs des champs
-                String name = editTextName.getText().toString().trim();
-                String surname = editTextSurname.getText().toString().trim();
+                String firstName = editTextName.getText().toString().trim();
+                String lastName = editTextSurname.getText().toString().trim();
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
                 String phonePrefix = spinnerPrefix.getSelectedItem().toString(); // Préfixe téléphonique
-                String phone = editTextPhone.getText().toString().trim();
-                String fullPhone = phonePrefix + phone; // Concaténer le préfixe et le numéro
+                String phoneNumber = editTextPhone.getText().toString().trim(); // Numéro de téléphone
 
-                // Valider les champs (optionnel)
-                if (name.isEmpty() || surname.isEmpty() || email.isEmpty() || password.isEmpty() || fullPhone.isEmpty()) {
+                // Validation des champs
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 if (!ValidationUtils.isValidEmail(email)) {
                     Toast.makeText(RegisterActivity.this, "E-mail invalide", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (dbHelper.isEmailExists(email)) {
-                    Toast.makeText(RegisterActivity.this, "Cet e-mail est déjà utilisé", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -101,21 +92,29 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (!ValidationUtils.isValidPhone(phone)) {
-                    Toast.makeText(RegisterActivity.this, "Numéro de téléphone invalide", Toast.LENGTH_SHORT).show();
+                if (!ValidationUtils.isValidPhoneNumber(phonePrefix, phoneNumber)) {
+                    Toast.makeText(RegisterActivity.this, "Numéro de téléphone invalide pour le préfixe " + phonePrefix, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Crypte le mot de passe
-                String hashedPassword = PasswordUtils.hashPassword(password);
-                // Insérer l'utilisateur dans la base de données
-                long userId = dbHelper.addUser(name, surname, email, hashedPassword, fullPhone);
-
-                if (userId != -1) {
-                    Toast.makeText(RegisterActivity.this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(RegisterActivity.this, "Erreur lors de l'inscription", Toast.LENGTH_SHORT).show();
+                JsonDatabase jsonDatabase = new JsonDatabase(RegisterActivity.this);
+                if (jsonDatabase.isEmailExists(email)) {
+                    Toast.makeText(RegisterActivity.this, "Cet e-mail est déjà utilisé", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                // Crypter le mot de passe
+                String hashedPassword = PasswordUtils.hashPassword(password);
+
+                // Créer un nouvel utilisateur avec le numéro de téléphone
+                User newUser = new User(firstName, lastName, email, hashedPassword, phonePrefix + phoneNumber);
+
+                // Ajouter l'utilisateur au fichier JSON
+                jsonDatabase.addUser(newUser);
+
+                Toast.makeText(RegisterActivity.this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
