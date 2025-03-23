@@ -65,6 +65,7 @@
             </ImageView>
 
             <EditText
+                android:id="@+id/editTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
@@ -76,6 +77,7 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/editTextSurname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
@@ -102,6 +104,7 @@
         </ImageView>
 
         <EditText
+            android:id="@+id/editTextMail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="E-mail"
@@ -124,6 +127,7 @@
         </ImageView>
 
         <EditText
+            android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/mdp"
@@ -149,6 +153,7 @@
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"/>
         <EditText
+            android:id="@+id/editTextPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/phone"
@@ -158,6 +163,7 @@
         </EditText>
     </LinearLayout>
     <Button
+        android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
