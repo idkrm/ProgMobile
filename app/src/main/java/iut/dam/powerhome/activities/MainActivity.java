@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         fm = getSupportFragmentManager();
         nav.setNavigationItemSelectedListener(this);
-        nav.getMenu().performIdentifierAction(R.id.menu_habitats, 0);
+        nav.getMenu().performIdentifierAction(R.id.menu_monhabitat, 0);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }

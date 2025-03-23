@@ -8,8 +8,6 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
-    private int floor;
-    private double area;
     public Habitat habitat;
 
     public User() {}
@@ -61,21 +59,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public int getFloor() {
-        return floor;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
     }
 }

@@ -14,18 +14,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.util.List;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import iut.dam.powerhome.R;
-import entities.User;
-import iut.dam.powerhome.database.JsonDatabase;
-import iut.dam.powerhome.utils.PasswordUtils;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button creerCompte;
-    private Button connecter;
-    private EditText mail;
-    private EditText mdp;
+    private Button creerCompte, connecter;
+    private EditText mail, mdp;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -65,33 +64,48 @@ public class LoginActivity extends AppCompatActivity {
                 // Valider les champs
                 if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Lire les utilisateurs depuis le fichier JSON
-                JsonDatabase jsonDatabase = new JsonDatabase(LoginActivity.this);
-                List<User> users = jsonDatabase.readUsers();
-
-                // Vérifier si l'utilisateur existe
-                boolean isAuthenticated = false;
-                for (User user : users) {
-                    if (user.getEmail().equalsIgnoreCase(email) && PasswordUtils.checkPassword(password, user.getPassword())) {
-                        isAuthenticated = true;
-                        break;
-                    }
-                }
-
-                // Rediriger l'utilisateur ou afficher un message d'erreur
-                if (isAuthenticated) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Mail", email);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
                 } else {
-                    Toast.makeText(LoginActivity.this, "Erreur, identifiant ou mot de passe incorrect !", Toast.LENGTH_SHORT).show();
+                    loginUser(email, password);
                 }
             }
         });
+    }
+
+    private void loginUser(String email, String password) {
+        String url = "http://192.168.1.67/ecopower/login.php";
+
+        Ion.with(this)
+                .load("POST", url)
+                .setBodyParameter("email", email)
+                .setBodyParameter("password", password)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        if (e != null) {
+                            e.printStackTrace();
+                            Toast.makeText(LoginActivity.this, "Erreur de connexion au serveur", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        try {
+                            JSONObject jsonResponse = new JSONObject(result);
+                            String status = jsonResponse.getString("status");
+                            String message = jsonResponse.getString("message");
+
+                            if (status.equals("success")) {
+                                Toast.makeText(LoginActivity.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Redirection vers MainActivity
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                            Toast.makeText(LoginActivity.this, "Erreur de traitement de la réponse du serveur", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

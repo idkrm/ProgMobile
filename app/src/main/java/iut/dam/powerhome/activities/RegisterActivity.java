@@ -16,17 +16,18 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import entities.User;
-import iut.dam.powerhome.utils.PasswordUtils;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import iut.dam.powerhome.R;
-import iut.dam.powerhome.utils.ValidationUtils;
-import iut.dam.powerhome.database.JsonDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private ImageView back;
-    private EditText editTextName, editTextSurname, editTextEmail, editTextPassword, editTextPhone;
     private Spinner spinnerPrefix;
-    private Button buttonSignUp;
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"; // Expression régulière pour un e-mail
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,64 +59,86 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Initialiser les vues
-        editTextName = findViewById(R.id.editTextName);
-        editTextSurname = findViewById(R.id.editTextSurname);
-        editTextEmail = findViewById(R.id.editTextMail);
-        editTextPassword = findViewById(R.id.editTextPassword);
-        editTextPhone = findViewById(R.id.editTextPhone);
-        buttonSignUp = findViewById(R.id.btnSignup);
+        EditText editTextName = findViewById(R.id.editTextName);
+        EditText editTextSurname = findViewById(R.id.editTextSurname);
+        EditText editTextMail = findViewById(R.id.editTextMail);
+        EditText editTextPassword = findViewById(R.id.editTextPassword);
+        Spinner spinnerPrefix = findViewById(R.id.prefixeTel);
+        EditText editTextPhone = findViewById(R.id.editTextPhone);
 
-        buttonSignUp.setOnClickListener(new View.OnClickListener() {
+        Button btnSignup = findViewById(R.id.btnSignup);
+
+        btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Récupérer les valeurs des champs
                 String firstName = editTextName.getText().toString().trim();
                 String lastName = editTextSurname.getText().toString().trim();
-                String email = editTextEmail.getText().toString().trim();
+                String email = editTextMail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
-                String phonePrefix = spinnerPrefix.getSelectedItem().toString(); // Préfixe téléphonique
-                String phoneNumber = editTextPhone.getText().toString().trim(); // Numéro de téléphone
+                String phonePrefix = spinnerPrefix.getSelectedItem().toString();
+                String phoneNumber = editTextPhone.getText().toString().trim();
+                String fullPhone = phonePrefix + phoneNumber; // Concaténer le préfixe et le numéro
 
-                // Validation des champs
-                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!ValidationUtils.isValidEmail(email)) {
+                if (!isValidEmail(email)) {
                     Toast.makeText(RegisterActivity.this, "E-mail invalide", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!ValidationUtils.isValidPassword(password)) {
-                    Toast.makeText(RegisterActivity.this, "Le mot de passe doit contenir au moins 8 caractères, une majuscule et un chiffre", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!ValidationUtils.isValidPhoneNumber(phonePrefix, phoneNumber)) {
-                    Toast.makeText(RegisterActivity.this, "Numéro de téléphone invalide pour le préfixe " + phonePrefix, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                JsonDatabase jsonDatabase = new JsonDatabase(RegisterActivity.this);
-                if (jsonDatabase.isEmailExists(email)) {
-                    Toast.makeText(RegisterActivity.this, "Cet e-mail est déjà utilisé", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Crypter le mot de passe
-                String hashedPassword = PasswordUtils.hashPassword(password);
-
-                // Créer un nouvel utilisateur avec le numéro de téléphone
-                User newUser = new User(firstName, lastName, email, hashedPassword, phonePrefix + phoneNumber);
-
-                // Ajouter l'utilisateur au fichier JSON
-                jsonDatabase.addUser(newUser);
-
-                Toast.makeText(RegisterActivity.this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(intent);
+                sendDataToServer(firstName, lastName, email, password, fullPhone);
             }
         });
+    }
+
+    public static boolean isValidEmail(String email) {
+        return email.matches(EMAIL_REGEX);
+    }
+
+    private void sendDataToServer(String firstName, String lastName, String email, String password, String phone) {
+        String url = "http://192.168.1.67/ecopower/register.php";
+
+        Ion.with(this)
+                .load("POST", url)
+                .setBodyParameter("firstname", firstName)
+                .setBodyParameter("lastname", lastName)
+                .setBodyParameter("email", email)
+                .setBodyParameter("password", password)
+                .setBodyParameter("phone_number", phone)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        if (e != null) {
+                            e.printStackTrace();
+                            Toast.makeText(RegisterActivity.this, "Erreur de connexion au serveur", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        try {
+                            // Parser la réponse JSON
+                            JSONObject jsonResponse = new JSONObject(result);
+                            String status = jsonResponse.getString("status");
+
+                            // Traiter la réponse du serveur
+                            if (status.equals("success")) {
+                                Toast.makeText(RegisterActivity.this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                String errorMessage = jsonResponse.getString("message");
+                                Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException ex) {
+                            ex.printStackTrace();
+                            Toast.makeText(RegisterActivity.this, "Erreur de traitement de la réponse du serveur", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
