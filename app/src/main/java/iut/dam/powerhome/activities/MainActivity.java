@@ -2,6 +2,7 @@ package iut.dam.powerhome.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -12,6 +13,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -19,6 +22,7 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
@@ -71,53 +75,65 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return toggle.onOptionsItemSelected(item);
     }
     @Override
-    public boolean onNavigationItemSelected(MenuItem item){
-        if (item.getItemId() == R.id.menu_habitats){
-            fm.beginTransaction().replace(R.id.contentFL, new HabitatFragment()).commit();
-            couleurTexte("Habitats");
-        }
-        else if (item.getItemId() == R.id.menu_monhabitat){
-            fm.beginTransaction().replace(R.id.contentFL, new MonHabitatFragment()).commit();
-            couleurTexte("Mon habitat");
-        }
-        else if (item.getItemId() == R.id.menu_notif){
-            fm.beginTransaction().replace(R.id.contentFL, new NotificationsFragment()).commit();
-            couleurTexte("Mes notifications");
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        Fragment fragment = null;
+        int titleResId = 0;
 
-        }else if (item.getItemId() == R.id.menu_preference){
-            fm.beginTransaction().replace(R.id.contentFL, new PreferenceFragment()).commit();
-            couleurTexte("Mes préférences");
+        if (itemId == R.id.menu_habitats) {
+            fragment = new HabitatFragment();
+            titleResId = R.string.habitats;
+        } else if (itemId == R.id.menu_monhabitat) {
+            fragment = new MonHabitatFragment();
+            titleResId = R.string.my_habitat;
+        } else if (itemId == R.id.menu_notif) {
+            fragment = new NotificationsFragment();
+            titleResId = R.string.mes_notifications;
+        } else if (itemId == R.id.menu_preference) {
+            fragment = new PreferenceFragment();
+            titleResId = R.string.mes_pr_f_rences;
+        } else if (itemId == R.id.menu_deco) {
+            handleLogout();
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        } else {
+            drawer.closeDrawer(GravityCompat.START);
+            return false;
         }
-        else if (item.getItemId() == R.id.menu_deco){
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
-            finish();
+
+        if (fragment != null) {
+            fm.beginTransaction()
+                    .replace(R.id.contentFL, fragment)
+                    .commit();
+
+            setActionBarTitle(titleResId);
         }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void couleurTexte(String s){
-        SpannableString spannableString = new SpannableString(s);
-        spannableString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        getSupportActionBar().setTitle(spannableString);
+    private void handleLogout() {
+        SharedPreferences preferences = getSharedPreferences("user_session", MODE_PRIVATE);
+        preferences.edit().clear().apply();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
-    public void getRemoteHabitats() {
-        String urlString = "http://10.125.132.129/powerhome/getHabitats.php";
-        Ion.with(this)
-                .load(urlString)
-                .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        pDialog.dismiss();
-                        if (result == null)
-                            Log.d("TAG", "No response from the server!!!");
-                        else {
-                            // Traitement de result
-                            Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+
+    private void setActionBarTitle(@StringRes int titleResId) {
+        if (getSupportActionBar() != null) {
+            String title = getString(titleResId);
+            SpannableString spannableString = new SpannableString(title);
+            spannableString.setSpan(
+                    new ForegroundColorSpan(Color.WHITE),
+                    0,
+                    spannableString.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            );
+            getSupportActionBar().setTitle(spannableString);
+        }
     }
 }

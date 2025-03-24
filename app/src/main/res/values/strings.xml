@@ -25,7 +25,7 @@
     <string name="reference">Reference</string>
     <string name="email">E-mail</string>
     <string name="etage">Floor</string>
-    <string name="fill_fields">Please fill in all fields</string>
+    <string name="fill_fields">Please complete all fields</string>
     <string name="successful_reg">Successful registration!</string>
     <string name="invalid_email">Invalid e-mail</string>
     <string name="mes_notifications">My notifications</string>

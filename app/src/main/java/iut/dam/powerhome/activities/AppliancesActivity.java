@@ -55,7 +55,7 @@ public class AppliancesActivity extends AppCompatActivity {
         });
 
         floor = findViewById(R.id.floor);
-        String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
+        String[] items = new String[]{"Floor", "1", "2", "3", "4", "5", "6", "7", "8"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         floor.setPrompt(getString(R.string.etage));
         floor.setAdapter(adapter);
@@ -81,8 +81,7 @@ public class AppliancesActivity extends AppCompatActivity {
 
         btnSignup = findViewById(R.id.btnSignup);
         btnSignup.setOnClickListener(v -> {
-            // Vérifier que tous les appareils sont remplis
-            if (!areAllAppliancesFilled()) {
+            if (!allFieldsOk()) {
                 Toast.makeText(this, R.string.fill_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -172,9 +171,10 @@ public class AppliancesActivity extends AppCompatActivity {
 
     }
 
-    private boolean areAllAppliancesFilled() {
+    private boolean allFieldsOk() {
         EditText editTextArea = findViewById(R.id.editTextArea);
-        if (editTextArea.getText().toString().isEmpty())
+        if (editTextArea.getText().toString().isEmpty() ||
+                floor.getSelectedItem().toString().equals("Floor"))
             return false;
 
         for (View applianceView : applianceViews) {
