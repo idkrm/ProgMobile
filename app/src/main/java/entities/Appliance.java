@@ -24,6 +24,12 @@ public class Appliance {
         bookings = new ArrayList<>();
     }
 
+    public Appliance(String name, String reference, int wattage) {
+        this.name = name;
+        this.reference = reference;
+        this.wattage = wattage;
+    }
+
     public int getId() {
         return id;
     }

@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +25,10 @@ import org.json.JSONObject;
 import iut.dam.powerhome.R;
 
 public class MonHabitatFragment extends Fragment {
-    private TextView nomPersonne, prenomPersonne, adressePersonne, telPersonne;
+    private TextView nomPersonne, prenomPersonne, adressePersonne, telPersonne, consommationPersonne;
+    private int consommationTotale = 0;
     private TextView etagePersonne, areaPersonne, appliancePersonne;
+    private Button btnEdit;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -40,6 +44,20 @@ public class MonHabitatFragment extends Fragment {
         etagePersonne = view.findViewById(R.id.etagepersonne);
         areaPersonne = view.findViewById(R.id.areapersonne);
         appliancePersonne = view.findViewById(R.id.appliancepersonne);
+        consommationPersonne = view.findViewById(R.id.consommationpersonne);
+
+        btnEdit = view.findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditAppliancesFragment fragment = new EditAppliancesFragment();
+                FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.contentFL, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
 
         // Récupérer les infos de connexion
         sharedPreferences = getActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE);
@@ -102,15 +120,19 @@ public class MonHabitatFragment extends Fragment {
                                                 .append(") - ")
                                                 .append(appliance.getInt("wattage"))
                                                 .append("W\n");
+                                        consommationTotale += appliance.getInt("wattage");
                                     }
 
                                     if (sb.length() > 0) {
                                         appliancePersonne.setText(sb.toString());
+                                        consommationPersonne.setText(consommationTotale + "W");
                                     } else {
                                         appliancePersonne.setText("Aucun appareil enregistré");
+                                        consommationPersonne.setText("0W");
                                     }
                                 } else {
                                     appliancePersonne.setText("Aucune information d'appareils");
+                                    consommationPersonne.setText("0W");
                                 }
                             } else {
                                 Toast.makeText(getContext(), jsonResponse.getString("message"), Toast.LENGTH_SHORT).show();
