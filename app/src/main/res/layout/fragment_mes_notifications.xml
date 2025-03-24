@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="My notifications"/>
+        android:text="@string/mes_notifications"
+        android:textColor="@color/joli_vert"/>
 
 </LinearLayout>

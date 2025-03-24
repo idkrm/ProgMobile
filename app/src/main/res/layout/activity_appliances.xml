@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#232323">
+        android:background="@color/joli_vert">
 
         <ImageView
             android:id="@+id/retour"
@@ -40,9 +40,10 @@
         android:layout_height="wrap_content"
         android:text="@string/create_account"
         android:textSize="20sp"
-        android:padding="15dp"
+        android:paddingVertical="15dp"
         android:layout_marginBottom="20dp"
-        android:textColor="@android:color/darker_gray">
+        android:textColor="@color/joli_vert"
+        android:layout_marginStart="29dp">
     </TextView>
 
     <LinearLayout
@@ -61,7 +62,7 @@
             <ImageView
                 android:layout_width="43dp"
                 android:layout_height="36dp"
-                android:src="@drawable/img_floor"
+                android:src="@drawable/img_flooor"
                 android:layout_gravity="center_vertical"/>
             <Spinner
                 android:id="@+id/floor"
@@ -90,7 +91,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_appliance"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rect2"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/white"
+            />
 
 
         <Button
