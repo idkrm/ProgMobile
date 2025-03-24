@@ -1,6 +1,7 @@
 package iut.dam.powerhome.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -80,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String phoneNumber = editTextPhone.getText().toString().trim();
                 String fullPhone = phonePrefix + phoneNumber; // Concaténer le préfixe et le numéro
 
-                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
                     Toast.makeText(RegisterActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -104,48 +105,5 @@ public class RegisterActivity extends AppCompatActivity {
 
     public static boolean isValidEmail(String email) {
         return email.matches(EMAIL_REGEX);
-    }
-
-    private void sendDataToServer(String firstName, String lastName, String email, String password, String phone) {
-        String url = "http://192.168.1.67/ecopower/register.php";
-
-        Ion.with(this)
-                .load("POST", url)
-                .setBodyParameter("firstname", firstName)
-                .setBodyParameter("lastname", lastName)
-                .setBodyParameter("email", email)
-                .setBodyParameter("password", password)
-                .setBodyParameter("phone_number", phone)
-                .asString()
-                .setCallback(new FutureCallback<String>() {
-                    @Override
-                    public void onCompleted(Exception e, String result) {
-                        if (e != null) {
-                            e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "Erreur de connexion au serveur", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-                        try {
-                            // Parser la réponse JSON
-                            JSONObject jsonResponse = new JSONObject(result);
-                            String status = jsonResponse.getString("status");
-
-                            // Traiter la réponse du serveur
-                            if (status.equals("success")) {
-                                Toast.makeText(RegisterActivity.this, "Inscription réussie !", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                String errorMessage = jsonResponse.getString("message");
-                                Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException ex) {
-                            ex.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "Erreur de traitement de la réponse du serveur", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
     }
 }

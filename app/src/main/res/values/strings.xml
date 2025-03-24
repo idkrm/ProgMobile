@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">EcoPower</string>
     <string name="facebook">Continue with Facebook</string>
-    <string name="nv">New on PowerHome ?</string>
+    <string name="nv">New on EcoPower ?</string>
     <string name="creer_compte">CREATE AN ACCOUNT</string>
     <string name="connect">CONNECT</string>
     <string name="mdp">Password</string>
@@ -11,8 +11,8 @@
     <string name="connectez_vous">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name="create_account">Create an account</string>
-    <string name="name">Name</string>
-    <string name="surname">Surname</string>
+    <string name="name">First name</string>
+    <string name="lastname">Last name</string>
     <string name="phone">Phone</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -24,4 +24,5 @@
     <string name="add_appliance">Add Appliance</string>
     <string name="wattage">Wattage</string>
     <string name="reference">Reference</string>
+    <string name="email">E-mail</string>
 </resources>

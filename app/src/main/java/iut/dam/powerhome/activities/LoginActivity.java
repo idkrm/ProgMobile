@@ -2,6 +2,7 @@ package iut.dam.powerhome.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -94,6 +95,13 @@ public class LoginActivity extends AppCompatActivity {
                             String message = jsonResponse.getString("message");
 
                             if (status.equals("success")) {
+                                // Stocker les informations de connexion
+                                SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("email", email);
+                                editor.putString("password", password);
+                                editor.apply();
+
                                 Toast.makeText(LoginActivity.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Redirection vers MainActivity
                                 startActivity(intent);

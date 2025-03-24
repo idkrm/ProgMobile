@@ -1,6 +1,7 @@
 package iut.dam.powerhome.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -232,21 +233,24 @@ public class AppliancesActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e("API_ERROR", "Erreur réseau: " + e.getMessage(), e);
                             Toast.makeText(AppliancesActivity.this, "Erreur de connexion au serveur", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         try {
-                            Log.d("API_RESPONSE", "Réponse brute: " + result); // Log la réponse complète
-
                             JSONObject jsonResponse = new JSONObject(result);
                             String status = jsonResponse.getString("status");
                             Log.d("API_STATUS", "Status: " + status);
 
                             if (status.equals("success")) {
-                                Log.i("API_SUCCESS", "Inscription réussie");
-                                Toast.makeText(AppliancesActivity.this, "Inscription complète réussie!", Toast.LENGTH_SHORT).show();
+                                // Stocker les informations d'inscription
+                                SharedPreferences sharedPreferences = getSharedPreferences("user_session", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("email", email);
+                                editor.putString("password", password);
+                                editor.apply();
+
+                                Toast.makeText(AppliancesActivity.this, "Inscription réussie!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(AppliancesActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
