@@ -27,7 +27,7 @@
             android:text="@string/month_year"
             android:textSize="18sp"
             android:layout_marginHorizontal="16dp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/joli_vert"
             android:textStyle="bold"/>
 
         <Button
