@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="appliance_types">
+        <item>Aspirateur</item>
+        <item>Climatiseur</item>
+        <item>Machine à laver</item>
+        <item>Fer à repasser</item>
+    </string-array>
+</resources>
