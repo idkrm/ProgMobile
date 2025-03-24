@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_habitats"
-        android:title="Habitats"
+        android:title="@string/habitats"
         android:icon="@drawable/img_habitats"/>
     <item
         android:id="@+id/menu_monhabitat"
-        android:title="Mon habitat"
+        android:title="@string/mon_habitat"
         android:icon="@drawable/face"/>
     <item
         android:id="@+id/menu_notif"
-        android:title="Mes notifications"
+        android:title="@string/mes_notifications"
         android:icon="@drawable/img_notif"/>
     <item
         android:id="@+id/menu_preference"
-        android:title="Mes préférences"
+        android:title="@string/mes_pr_f_rences"
         android:icon="@drawable/img_preference"/>
     <item
         android:id="@+id/menu_deco"
-        android:title="Se déconnecter"
+        android:title="@string/se_d_connecter"
         android:icon="@drawable/img_deco"/>
 
 </menu>

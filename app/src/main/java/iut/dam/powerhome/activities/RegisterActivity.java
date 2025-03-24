@@ -82,12 +82,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String fullPhone = phonePrefix + phoneNumber; // Concaténer le préfixe et le numéro
 
                 if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || phoneNumber.isEmpty()) {
-                    Toast.makeText(RegisterActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.fill_fields, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!isValidEmail(email)) {
-                    Toast.makeText(RegisterActivity.this, "E-mail invalide", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, R.string.invalid_email, Toast.LENGTH_SHORT).show();
                     return;
                 }
 

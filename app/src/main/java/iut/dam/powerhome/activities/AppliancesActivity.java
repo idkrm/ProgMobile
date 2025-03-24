@@ -57,7 +57,7 @@ public class AppliancesActivity extends AppCompatActivity {
         floor = findViewById(R.id.floor);
         String[] items = new String[]{"1", "2", "3", "4", "5", "6", "7", "8"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        floor.setPrompt("Etage");
+        floor.setPrompt(getString(R.string.etage));
         floor.setAdapter(adapter);
 
         mainLayout = findViewById(R.id.main);
@@ -83,7 +83,7 @@ public class AppliancesActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(v -> {
             // Vérifier que tous les appareils sont remplis
             if (!areAllAppliancesFilled()) {
-                Toast.makeText(this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.fill_fields, Toast.LENGTH_SHORT).show();
                 return;
             }
             sendDataToServer();
@@ -250,7 +250,7 @@ public class AppliancesActivity extends AppCompatActivity {
                                 editor.putString("password", password);
                                 editor.apply();
 
-                                Toast.makeText(AppliancesActivity.this, "Inscription réussie!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AppliancesActivity.this, R.string.successful_reg, Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(AppliancesActivity.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();

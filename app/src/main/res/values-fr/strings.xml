@@ -14,4 +14,37 @@
     <string name="name">Prénom</string>
     <string name="lastname">Nom</string>
     <string name="phone">Mobile</string>
+    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+    <string name="open">Ouvrir</string>
+    <string name="close">Fermer</string>
+    <string name="previous" translatable="false"><![CDATA[<]]></string>
+    <string name="next" translatable="false"><![CDATA[>]]></string>
+    <string name="area">Zone</string>
+    <string name="add_appliance">Ajouter un appareil</string>
+    <string name="wattage">Puissance</string>
+    <string name="reference">Référence</string>
+    <string name="email">E-mail</string>
+    <string name="etage">Étage</string>
+    <string name="fill_fields">Veuillez remplir tous les champs</string>
+    <string name="successful_reg">Inscription réussie !</string>
+    <string name="invalid_email">E-mail invalide</string>
+    <string name="mes_notifications">Mes notifications</string>
+    <string name="mes_pr_f_rences">Mes préférences</string>
+    <string name="se_d_connecter">Se déconnecter</string>
+    <string name="habitats">Habitats</string>
+    <string name="mon_habitat">Mon habitat</string>
+    <string name="my_informations">Mes informations</string>
+    <string name="my_habitat">Mon habitat</string>
+    <string name="appliances">Appareils</string>
+    <string name="edit_my_appliances">Modifier mes appareils</string>
+    <string name="month_year">Mois, Année</string>
+    <string name="l">L</string>
+    <string name="m">M</string>
+    <string name="me">M</string>
+    <string name="j">J</string>
+    <string name="v">V</string>
+    <string name="s">S</string>
+    <string name="d">D</string>
+
+
 </resources>

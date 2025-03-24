@@ -14,15 +14,38 @@
     <string name="name">First name</string>
     <string name="lastname">Last name</string>
     <string name="phone">Phone</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="previous"><![CDATA[<]]></string>
-    <string name="next"><![CDATA[>]]></string>
+    <string name="previous" translatable="false"><![CDATA[<]]></string>
+    <string name="next" translatable="false"><![CDATA[>]]></string>
     <string name="area">Area</string>
     <string name="add_appliance">Add Appliance</string>
     <string name="wattage">Wattage</string>
     <string name="reference">Reference</string>
     <string name="email">E-mail</string>
+    <string name="etage">Floor</string>
+    <string name="fill_fields">Please fill in all fields</string>
+    <string name="successful_reg">Successful registration!</string>
+    <string name="invalid_email">Invalid e-mail</string>
+    <string name="mes_notifications">My notifications</string>
+    <string name="mes_pr_f_rences">My preferences</string>
+    <string name="se_d_connecter">Log out</string>
+    <string name="habitats">Habitats</string>
+    <string name="mon_habitat">My habitat</string>
+    <string name="my_informations">My information</string>
+    <string name="my_habitat">My habitat</string>
+    <string name="appliances">Appliances</string>
+    <string name="edit_my_appliances">Edit my appliances</string>
+    <string name="month_year">Month, Year</string>
+    <string name="l">M</string>
+    <string name="m">T</string>
+    <string name="me">W</string>
+    <string name="j">T</string>
+    <string name="v">F</string>
+    <string name="s">S</string>
+    <string name="d">S</string>
+
+
+
 </resources>

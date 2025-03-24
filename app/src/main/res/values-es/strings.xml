@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook">Continuar con Facebook</string>
+    <string name="nv">¿Nuevo en EcoPower?</string>
+    <string name="creer_compte">CREAR UNA CUENTA</string>
+    <string name="connect">INICIAR SESIÓN</string>
+    <string name="mdp">Contraseña</string>
+    <string name="mdp_oublie">¿OLVIDASTE LA CONTRASEÑA?</string>
+    <string name="identifiez_vous">Identifícate</string>
+    <string name="or">"  O  "</string>
+    <string name="connectez_vous">Inicia sesión</string>
+    <string name="sign_up">Crear una cuenta</string>
+    <string name="create_account">Crear una nueva cuenta</string>
+    <string name="name">Nombre</string>
+    <string name="lastname">Apellido</string>
+    <string name="phone">Móvil</string>
+    <string name="hello_blank_fragment">Hola fragmento vacío</string>
+    <string name="open">Abrir</string>
+    <string name="close">Cerrar</string>
+    <string name="previous" translatable="false"><![CDATA[<]]></string>
+    <string name="next" translatable="false"><![CDATA[>]]></string>
+    <string name="area">Área</string>
+    <string name="add_appliance">Añadir un dispositivo</string>
+    <string name="wattage">Potencia</string>
+    <string name="reference">Referencia</string>
+    <string name="email">Correo electrónico</string>
+    <string name="etage">Piso</string>
+    <string name="fill_fields">Por favor, complete todos los campos</string>
+    <string name="successful_reg">¡Registro exitoso!</string>
+    <string name="invalid_email">Correo electrónico no válido</string>
+    <string name="mes_notifications">Mis notificaciones</string>
+    <string name="mes_pr_f_rences">Mis preferencias</string>
+    <string name="se_d_connecter">Cerrar sesión</string>
+    <string name="habitats">Hábitats</string>
+    <string name="mon_habitat">Mi hábitat</string>
+    <string name="my_informations">Mi información</string>
+    <string name="my_habitat">Mi hábitat</string>
+    <string name="appliances">Aparatos</string>
+    <string name="edit_my_appliances">Editar mis aparatos</string>
+    <string name="month_year">Mes, Año</string>
+    <string name="l">L</string>
+    <string name="m">M</string>
+    <string name="me">X</string>
+    <string name="j">J</string>
+    <string name="v">V</string>
+    <string name="s">S</string>
+    <string name="d">D</string>
+
+
+</resources>

@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Valider les champs
                 if (email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, R.string.fill_fields, Toast.LENGTH_SHORT).show();
                 } else {
                     loginUser(email, password);
                 }

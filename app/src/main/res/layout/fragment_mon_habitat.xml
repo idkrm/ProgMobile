@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:text="My informations"/>
+        android:text="@string/my_informations"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,7 +99,7 @@
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginTop="20dp"
-            android:text="My habitat"/>
+            android:text="@string/my_habitat"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="Area"/>
+                    android:text="@string/area"/>
 
                 <TextView
                     android:id="@+id/areapersonne"
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
-                    android:text="Appliances"/>
+                    android:text="@string/appliances"/>
 
                 <TextView
                     android:id="@+id/appliancepersonne"
@@ -162,7 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Edit my appliances">
+            android:text="@string/edit_my_appliances">
         </Button>
     </LinearLayout>
 

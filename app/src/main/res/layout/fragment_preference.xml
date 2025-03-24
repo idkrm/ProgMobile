@@ -24,7 +24,7 @@
             android:id="@+id/monthYearTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Month, Year"
+            android:text="@string/month_year"
             android:textSize="18sp"
             android:layout_marginHorizontal="16dp"
             android:textColor="@android:color/black"
@@ -47,7 +47,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="L"
+            android:text="@string/l"
             android:gravity="center"
             android:textColor="@android:color/black"/>
 
@@ -55,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="M"
+            android:text="@string/m"
             android:gravity="center"
             android:textColor="@android:color/black"/>
 
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="M"
+            android:text="@string/me"
             android:gravity="center"
             android:textColor="@android:color/black"/>
 
@@ -71,7 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="J"
+            android:text="@string/j"
             android:gravity="center"
             android:textColor="@android:color/black"/>
 
@@ -79,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="V"
+            android:text="@string/v"
             android:gravity="center"
             android:textColor="@android:color/black"/>
 
@@ -87,7 +87,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="S"
+            android:text="@string/s"
             android:gravity="center"
             android:textColor="@android:color/black"/>
 
@@ -95,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="D"
+            android:text="@string/d"
             android:gravity="center"
             android:textColor="@android:color/black"/>
     </LinearLayout>
