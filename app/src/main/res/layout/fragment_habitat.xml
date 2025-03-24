@@ -15,6 +15,6 @@
         android:id="@+id/listHab"
         android:layout_margin="20dp"
         android:background="@color/white">
-    </ListView>q
+    </ListView>
 
 </LinearLayout>

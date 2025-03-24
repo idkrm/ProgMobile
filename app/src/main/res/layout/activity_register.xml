@@ -166,10 +166,10 @@
         </EditText>
     </LinearLayout>
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up"
+        android:text="Next"
         android:background="@drawable/rect"
         android:textSize="20sp"
         android:textColor="#FFFF">

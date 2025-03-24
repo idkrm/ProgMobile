@@ -20,4 +20,8 @@
     <string name="close">Close</string>
     <string name="previous"><![CDATA[<]]></string>
     <string name="next"><![CDATA[>]]></string>
+    <string name="area">Area</string>
+    <string name="add_appliance">Add Appliance</string>
+    <string name="wattage">Wattage</string>
+    <string name="reference">Reference</string>
 </resources>

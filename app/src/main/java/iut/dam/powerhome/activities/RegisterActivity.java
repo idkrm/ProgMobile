@@ -66,9 +66,9 @@ public class RegisterActivity extends AppCompatActivity {
         Spinner spinnerPrefix = findViewById(R.id.prefixeTel);
         EditText editTextPhone = findViewById(R.id.editTextPhone);
 
-        Button btnSignup = findViewById(R.id.btnSignup);
+        Button btnNext = findViewById(R.id.btnNext);
 
-        btnSignup.setOnClickListener(new View.OnClickListener() {
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Récupérer les valeurs des champs
@@ -90,7 +90,14 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                sendDataToServer(firstName, lastName, email, password, fullPhone);
+                // Passer à AppliancesActivity avec les données
+                Intent intent = new Intent(RegisterActivity.this, AppliancesActivity.class);
+                intent.putExtra("firstname", firstName);
+                intent.putExtra("lastname", lastName);
+                intent.putExtra("email", email);
+                intent.putExtra("password", password);
+                intent.putExtra("phone", fullPhone);
+                startActivity(intent);
             }
         });
     }
