@@ -61,15 +61,20 @@ public class HabitatAdapter extends ArrayAdapter<Habitat> {
             ImageView img = new ImageView(this.getContext()); // cree dynamiquement une imageview
 
             // choisis l'image correspondant a l'equipement
-            if (a.getName().equals("Aspirateur"))
-                img.setImageResource(R.drawable.aspi);
-            else if (a.getName().equals("Fer"))
-                img.setImageResource(R.drawable.repasser);
-            else if (a.getName().equals("Climatiseur"))
-                img.setImageResource(R.drawable.climatiseur);
-            else if (a.getName().equals("Machine"))
-                img.setImageResource(R.drawable.machine);
-
+            switch (a.getName()) {
+                case "Aspirateur":
+                    img.setImageResource(R.drawable.aspi);
+                    break;
+                case "Fer à repasser":
+                    img.setImageResource(R.drawable.repasser);
+                    break;
+                case "Climatiseur":
+                    img.setImageResource(R.drawable.climatiseur);
+                    break;
+                case "Machine à laver":
+                    img.setImageResource(R.drawable.machine);
+                    break;
+            }
             imgEquip.addView(img, layoutparams); // rajoute l'image dans le layout
         }
 

@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/identifiez_vous"
+        android:textStyle="bold"
         android:textSize="20dp"
         android:layout_marginBottom="50dp"
         android:layout_marginTop="50dp"
@@ -52,13 +53,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="50dp">
 
             <ImageView
-                android:layout_width="43dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="35dp"
                 android:src="@drawable/mail2"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center">
             </ImageView>
 
             <EditText
@@ -66,7 +69,7 @@
                 android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
+                android:textSize="20sp"
                 android:hint="E-mail"
                 android:textColorHint="@android:color/darker_gray"
                 android:backgroundTint="@android:color/darker_gray"
@@ -80,10 +83,11 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="43dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:src="@drawable/cadena"
-                android:layout_marginEnd="10dp">
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="center">
             </ImageView>
 
             <EditText
@@ -92,9 +96,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/mdp"
+                android:textSize="20sp"
                 android:textColorHint="@android:color/darker_gray"
-                android:textColor="@android:color/darker_gray"
-                android:backgroundTint="@color/joli_vert">
+                android:backgroundTint="@android:color/darker_gray"
+                android:textColor="@color/joli_vert">
             </EditText>
         </LinearLayout>
     </LinearLayout>
@@ -112,7 +117,7 @@
     <Button
         android:id="@+id/connexion"
         android:background="@drawable/rect"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/connect"
         android:layout_gravity="center"
@@ -124,14 +129,16 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center">
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nv"
-            android:textColor="@android:color/darker_gray">
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center">
         </TextView>
 
         <Button
@@ -139,60 +146,9 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/creer_compte"
-            android:layout_marginStart="5dp"
             android:background="@android:color/transparent"
             android:textColor="@android:color/holo_blue_dark">
 
-        </Button>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:padding="20dp">
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"
-            android:layout_gravity="center">
-        </View>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/or"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:textColor="@android:color/darker_gray">
-        </TextView>
-        <View
-            android:layout_width="150dp"
-            android:layout_height="1.5dp"
-            android:background="@android:color/darker_gray"
-            android:layout_gravity="center">
-        </View>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:layout_width="36dp"
-            android:layout_height="31dp"
-            android:src="@drawable/facebook"
-            android:layout_gravity="center">
-
-        </ImageView>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:text="@string/facebook"
-            android:layout_marginStart="5dp"
-            android:textColor="@android:color/holo_blue_dark">
         </Button>
     </LinearLayout>
 </LinearLayout>

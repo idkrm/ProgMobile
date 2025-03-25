@@ -18,7 +18,7 @@
     <string name="open">Abrir</string>
     <string name="close">Cerrar</string>
     <string name="previous" translatable="false"><![CDATA[<]]></string>
-    <string name="next" translatable="false"><![CDATA[>]]></string>
+    <string name="next">Siguiente</string>
     <string name="area">Área</string>
     <string name="add_appliance">Añadir un dispositivo</string>
     <string name="wattage">Potencia</string>
@@ -45,6 +45,11 @@
     <string name="v">V</string>
     <string name="s">S</string>
     <string name="d">D</string>
-
+    <string name="habitat_information">Información sobre la vivienda</string>
+    <string name="total_consumption">Consumo total</string>
+    <string name="floor">Suelo</string>
+    <string name="add_appliances">Add Appliances</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
 
 </resources>

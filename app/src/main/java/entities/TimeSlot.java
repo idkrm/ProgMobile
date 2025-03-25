@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 public class TimeSlot {
-
     public int id;
     public Date begin;
     public Date end;
@@ -22,5 +21,13 @@ public class TimeSlot {
         this.end = end;
         this.maxWattage = maxWattage;
         bookings = new ArrayList<>();
+    }
+
+    public int getUsedWattage() {
+        return bookings.stream().mapToInt(b -> b.appliance.getWattage()).sum();
+    }
+
+    public double getUsagePercentage() {
+        return (double)getUsedWattage() / maxWattage * 100;
     }
 }

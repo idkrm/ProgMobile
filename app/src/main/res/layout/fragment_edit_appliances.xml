@@ -25,7 +25,7 @@
             android:paddingHorizontal="10dp"
             android:textColor="@color/white"
             android:layout_marginBottom="10dp"
-            android:text="Add Appliances"/>
+            android:text="@string/add_appliances"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -35,17 +35,18 @@
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:background="@drawable/rect3"
-            android:text="Back"
-            android:layout_marginRight="5dp"/>
+            android:text="@string/back"
+            android:layout_marginEnd="5dp"/>
         <Button
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/rect"
             android:textColor="@color/white"
-            android:layout_marginLeft="5dp"
-            android:text="Save"/>
+            android:layout_marginStart="5dp"
+            android:text="@string/save"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

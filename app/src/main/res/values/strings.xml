@@ -18,7 +18,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="previous" translatable="false"><![CDATA[<]]></string>
-    <string name="next" translatable="false"><![CDATA[>]]></string>
+    <string name="next">Next</string>
     <string name="area">Area</string>
     <string name="add_appliance">Add Appliance</string>
     <string name="wattage">Wattage</string>
@@ -45,6 +45,13 @@
     <string name="v">F</string>
     <string name="s">S</string>
     <string name="d">S</string>
+    <string name="habitat_information">Habitat information</string>
+    <string name="total_consumption">Total consumption</string>
+    <string name="floor">Floor</string>
+    <string name="add_appliances">Add Appliances</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="next_month" translatable="false"><![CDATA[>]]></string>
 
 
 </resources>

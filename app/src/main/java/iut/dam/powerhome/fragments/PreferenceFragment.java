@@ -1,30 +1,33 @@
 package iut.dam.powerhome.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import entities.Appliance;
+import entities.Booking;
+import entities.TimeSlot;
 import iut.dam.powerhome.R;
+import iut.dam.powerhome.adapters.CalendarAdapter;
+import iut.dam.powerhome.adapters.TimeSlotAdapter;
 
 public class PreferenceFragment extends Fragment {
 
@@ -34,18 +37,26 @@ public class PreferenceFragment extends Fragment {
     private CalendarAdapter calendarAdapter;
     private TimeSlotAdapter timeSlotAdapter;
     private Calendar currentCalendar = Calendar.getInstance();
+    private List<TimeSlot> timeSlots = new ArrayList<>();
+    private List<Appliance> userAppliances = new ArrayList<>();
+    private int selectedDay = -1;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_preference, container, false);
 
+        // Initialisation des vues
         calendarRecyclerView = view.findViewById(R.id.calendarRecyclerView);
         timeSlotsRecyclerView = view.findViewById(R.id.timeSlotsRecyclerView);
         monthYearTextView = view.findViewById(R.id.monthYearTextView);
         previousMonthButton = view.findViewById(R.id.previousMonthButton);
         nextMonthButton = view.findViewById(R.id.nextMonthButton);
 
+        // Charger les données
+        loadSampleData();
+
+        // Configurer les adaptateurs
         setupCalendar();
         setupTimeSlots();
         setupMonthNavigation();
@@ -53,36 +64,93 @@ public class PreferenceFragment extends Fragment {
         return view;
     }
 
+    private void loadSampleData() {
+        // Exemple de données
+        userAppliances.add(new Appliance(1, "Aspirateur", "MOD123", 800));
+        userAppliances.add(new Appliance(2, "Machine à laver", "MOD456", 2000));
+
+        // Création de créneaux horaires pour aujourd'hui + demain
+        Calendar cal = Calendar.getInstance();
+        int currentDay = cal.get(Calendar.DAY_OF_MONTH);
+
+        // Créneaux pour aujourd'hui (utilisation à 50%)
+        for (int i = 0; i < 8; i++) {
+            cal.set(Calendar.DAY_OF_MONTH, currentDay);
+            cal.set(Calendar.HOUR_OF_DAY, 9 + i*2);
+            cal.set(Calendar.MINUTE, 0);
+
+            TimeSlot slot = new TimeSlot(i, cal.getTime(),
+                    new Date(cal.getTimeInMillis() + 2*60*60*1000), 3000);
+
+            if (i == 2 || i == 3) {
+                Booking booking = new Booking();
+                booking.appliance = userAppliances.get(0); // Aspirateur 800W
+                slot.bookings.add(booking);
+            }
+
+            timeSlots.add(slot);
+        }
+
+        // Créneaux pour demain (utilisation à 80%)
+        for (int i = 0; i < 8; i++) {
+            cal.set(Calendar.DAY_OF_MONTH, currentDay + 1);
+            cal.set(Calendar.HOUR_OF_DAY, 9 + i*2);
+            cal.set(Calendar.MINUTE, 0);
+
+            TimeSlot slot = new TimeSlot(8 + i, cal.getTime(),
+                    new Date(cal.getTimeInMillis() + 2*60*60*1000), 3000);
+
+            if (i >= 1 && i <= 4) {
+                Booking booking = new Booking();
+                booking.appliance = userAppliances.get(1); // Machine 2000W
+                slot.bookings.add(booking);
+            }
+
+            timeSlots.add(slot);
+        }
+    }
+
     private void setupCalendar() {
-        calendarAdapter = new CalendarAdapter(getContext(), currentCalendar);
+        calendarAdapter = new CalendarAdapter(getContext(), currentCalendar, new CalendarAdapter.OnDayClickListener() {
+            @Override
+            public void onDayClick(int day) {
+                selectedDay = day;
+                updateTimeSlotsForSelectedDay();
+            }
+        });
+
         calendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
         calendarRecyclerView.setAdapter(calendarAdapter);
-
         updateMonthYear();
     }
 
     private void setupTimeSlots() {
-        timeSlotAdapter = new TimeSlotAdapter(getContext());
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3); // 3 colonnes
-        timeSlotsRecyclerView.setLayoutManager(layoutManager);
-        timeSlotsRecyclerView.setAdapter(timeSlotAdapter);
-
-        // Centrer les éléments dans le RecyclerView
-        timeSlotsRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        timeSlotAdapter = new TimeSlotAdapter(getContext(), new ArrayList<>(), new TimeSlotAdapter.OnTimeSlotClickListener() {
             @Override
-            public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
-                int position = parent.getChildAdapterPosition(view);
-                int totalItems = parent.getAdapter().getItemCount();
-
-                // Centrer les éléments
-                if (position % 3 == 0) { // Premier élément de la ligne
-                    outRect.left = (parent.getWidth() - (3 * view.getWidth())) / 2;
-                }
-                if (position % 3 == 2) { // Dernier élément de la ligne
-                    outRect.right = (parent.getWidth() - (3 * view.getWidth())) / 2;
-                }
+            public void onTimeSlotClick(TimeSlot timeSlot) {
+                showBookingDialog(timeSlot);
             }
         });
+
+        timeSlotsRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        timeSlotsRecyclerView.setAdapter(timeSlotAdapter);
+    }
+
+    private void updateTimeSlotsForSelectedDay() {
+        List<TimeSlot> filteredSlots = new ArrayList<>();
+
+        if (selectedDay != -1) {
+            for (TimeSlot slot : timeSlots) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(slot.begin);
+                if (cal.get(Calendar.DAY_OF_MONTH) == selectedDay) {
+                    filteredSlots.add(slot);
+                }
+            }
+        }
+
+        timeSlotAdapter.updateTimeSlots(filteredSlots);
+        timeSlotsRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void setupMonthNavigation() {
@@ -100,136 +168,92 @@ public class PreferenceFragment extends Fragment {
     private void updateCalendar() {
         calendarAdapter.setCalendar(currentCalendar);
         updateMonthYear();
+        timeSlotsRecyclerView.setVisibility(View.GONE);
+        selectedDay = -1;
     }
 
     private void updateMonthYear() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", Locale.FRENCH); // Mois en français
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", Locale.FRENCH);
         monthYearTextView.setText(sdf.format(currentCalendar.getTime()));
     }
 
-    class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.CalendarViewHolder> {
-        private Context context;
-        private Calendar calendar;
-        private int selectedPosition = -1;
-        private int startDayOfWeek; // Jour de la semaine du premier jour du mois (1 = lundi, 2 = mardi, etc.)
-        private int daysInMonth; // Nombre de jours dans le mois
+    private void showBookingDialog(TimeSlot timeSlot) {
+        int availableWattage = timeSlot.maxWattage - timeSlot.getUsedWattage();
+        String status;
 
-        public CalendarAdapter(Context context, Calendar calendar) {
-            this.context = context;
-            this.calendar = calendar;
-            this.calendar.set(Calendar.DAY_OF_MONTH, 1); // Réinitialiser au premier jour du mois
-            this.startDayOfWeek = getFrenchDayOfWeek(calendar); // Jour de la semaine du premier jour (lundi = 1)
-            this.daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH); // Nombre de jours dans le mois
+        if (availableWattage <= 0) {
+            status = "COMPLET";
+        } else {
+            double percentage = (double)timeSlot.getUsedWattage() / timeSlot.maxWattage * 100;
+            status = String.format("%.0f%% utilisé", percentage);
         }
 
-        public void setCalendar(Calendar calendar) {
-            this.calendar = calendar;
-            this.calendar.set(Calendar.DAY_OF_MONTH, 1); // Réinitialiser au premier jour du mois
-            this.startDayOfWeek = getFrenchDayOfWeek(calendar); // Jour de la semaine du premier jour (lundi = 1)
-            this.daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-            notifyDataSetChanged();
-        }
-
-        // Convertir le jour de la semaine en format français (lundi = 1, dimanche = 7)
-        private int getFrenchDayOfWeek(Calendar calendar) {
-            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK); // 1 = dimanche, 2 = lundi, etc.
-            return (dayOfWeek + 5) % 7 + 1; // Convertir en lundi = 1, dimanche = 7
-        }
-
-        @NonNull
-        @Override
-        public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_day, parent, false);
-            return new CalendarViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull CalendarViewHolder holder, @SuppressLint("RecyclerView") int position) {
-            if (position < startDayOfWeek - 1 || position >= startDayOfWeek - 1 + daysInMonth) {
-                // Jour vide (avant le premier jour du mois ou après le dernier jour du mois)
-                holder.dayTextView.setText("");
-                holder.itemView.setActivated(false);
-                holder.itemView.setSelected(false);
-                holder.itemView.setClickable(false);
-                holder.itemView.setBackgroundResource(R.drawable.day_background_empty); // Fond transparent
-            } else {
-                // Jour réel
-                int day = position - (startDayOfWeek - 2); // Calcul du jour correct
-                holder.dayTextView.setText(String.valueOf(day));
-                holder.itemView.setActivated(position == selectedPosition);
-                holder.itemView.setClickable(true);
-                holder.itemView.setBackgroundResource(R.drawable.day_background); // Fond coloré par défaut
-                holder.itemView.setOnClickListener(v -> {
-                    selectedPosition = position;
-                    notifyDataSetChanged();
-                    showTimeSlots();
-                });
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return 42; // 6 semaines maximum (7 jours * 6 semaines)
-        }
-
-         class CalendarViewHolder extends RecyclerView.ViewHolder {
-            TextView dayTextView;
-
-            public CalendarViewHolder(@NonNull View itemView) {
-                super(itemView);
-                dayTextView = itemView.findViewById(R.id.dayTextView);
-            }
-        }
-    }
-
-    private class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSlotViewHolder> {
-        private Context context;
-        private List<String> timeSlots = Arrays.asList("9h00", "11h00", "13h00", "15h00", "17h00", "19h00", "21h00", "23h00");
-
-        public TimeSlotAdapter(Context context) {
-            this.context = context;
-        }
-
-        @NonNull
-        @Override
-        public TimeSlotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_time_slot, parent, false);
-            return new TimeSlotViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
-            holder.timeSlotButton.setText(timeSlots.get(position));
-            holder.timeSlotButton.setOnClickListener(v -> showBookingDialog(timeSlots.get(position)));
-        }
-
-        @Override
-        public int getItemCount() {
-            return timeSlots.size();
-        }
-
-        class TimeSlotViewHolder extends RecyclerView.ViewHolder {
-            Button timeSlotButton;
-
-            public TimeSlotViewHolder(@NonNull View itemView) {
-                super(itemView);
-                timeSlotButton = itemView.findViewById(R.id.timeSlotButton);
-            }
-        }
-    }
-
-    private void showTimeSlots() {
-        timeSlotsRecyclerView.setVisibility(View.VISIBLE);
-    }
-
-    private void showBookingDialog(String timeSlot) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Réservation")
-                .setMessage("Voulez vous réserver ce créneau " + timeSlot + "?")
-                .setPositiveButton("Oui", (dialog, which) -> {
-                    // Handle booking
+                .setTitle("Réservation à " + String.format("%tHh%tM", timeSlot.begin, timeSlot.begin))
+                .setMessage("Statut: " + status + "\nCapacité disponible: " + availableWattage + "W")
+                .setPositiveButton("Réserver", (dialog, which) -> {
+                    if (availableWattage > 0) {
+                        showApplianceSelectionDialog(timeSlot);
+                    }
                 })
-                .setNegativeButton("Non", null)
+                .setNegativeButton("Annuler", null)
                 .show();
+    }
+
+    private void showApplianceSelectionDialog(TimeSlot timeSlot) {
+        CharSequence[] applianceNames = new CharSequence[userAppliances.size()];
+        boolean[] checkedItems = new boolean[userAppliances.size()];
+        List<Appliance> selectedAppliances = new ArrayList<>();
+
+        for (int i = 0; i < userAppliances.size(); i++) {
+            applianceNames[i] = userAppliances.get(i).getName() + " (" +
+                    userAppliances.get(i).getWattage() + "W)";
+        }
+
+        new AlertDialog.Builder(getContext())
+                .setTitle("Choisissez les appareils")
+                .setMultiChoiceItems(applianceNames, checkedItems, (dialog, which, isChecked) -> {
+                    if (isChecked) {
+                        selectedAppliances.add(userAppliances.get(which));
+                    } else {
+                        selectedAppliances.remove(userAppliances.get(which));
+                    }
+                })
+                .setPositiveButton("Confirmer", (dialog, which) -> {
+                    bookTimeSlot(timeSlot, selectedAppliances);
+                })
+                .setNegativeButton("Annuler", null)
+                .show();
+    }
+
+    private void bookTimeSlot(TimeSlot timeSlot, List<Appliance> appliances) {
+        int totalWattage = 0;
+        for (Appliance appliance : appliances) {
+            totalWattage += appliance.getWattage();
+        }
+
+        if (timeSlot.getUsedWattage() + totalWattage > timeSlot.maxWattage) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Capacité dépassée")
+                    .setMessage("La réservation dépasse la capacité maximale du créneau.")
+                    .setPositiveButton("OK", null)
+                    .show();
+            return;
+        }
+
+        // Effectuer les réservations
+        for (Appliance appliance : appliances) {
+            Booking booking = new Booking();
+            booking.appliance = appliance;
+            booking.timeSlot = timeSlot;
+            booking.bookedAt = new Date();
+            timeSlot.bookings.add(booking);
+        }
+
+        // Mettre à jour l'affichage
+        updateTimeSlotsForSelectedDay();
+        calendarAdapter.notifyDataSetChanged();
+
+        Toast.makeText(getContext(), "Réservation effectuée", Toast.LENGTH_SHORT).show();
     }
 }
