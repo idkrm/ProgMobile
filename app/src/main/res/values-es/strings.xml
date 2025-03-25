@@ -45,6 +45,9 @@
     <string name="v">V</string>
     <string name="s">S</string>
     <string name="d">D</string>
+    <string name="add_appliances">Agregar electrodomésticos</string>
+    <string name="back">Atrás</string>
+    <string name="save">Guardar</string>
 
 
 </resources>

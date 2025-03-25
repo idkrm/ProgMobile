@@ -45,6 +45,8 @@
     <string name="v">V</string>
     <string name="s">S</string>
     <string name="d">D</string>
-
+    <string name="add_appliances">Ajouter des appareils</string>
+    <string name="back">Retour</string>
+    <string name="save">Enregistrer</string>
 
 </resources>

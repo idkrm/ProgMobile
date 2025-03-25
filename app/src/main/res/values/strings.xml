@@ -45,6 +45,9 @@
     <string name="v">F</string>
     <string name="s">S</string>
     <string name="d">S</string>
+    <string name="add_appliances">Add Appliances</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
 
 
 </resources>
