@@ -57,7 +57,7 @@ public class HabitatFragment extends Fragment {
     }
 
     private void loadHabitatsFromServer() {
-        String url = "http://192.168.1.67/ecopower/getHabitats.php";
+        String url = "http://10.0.2.2/ecopower/getHabitats.php";
 
         Ion.with(this)
                 .load(url)

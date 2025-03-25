@@ -216,7 +216,7 @@ public class AppliancesActivity extends AppCompatActivity {
             }
         }
 
-        String url = "http://192.168.1.67/ecopower/register.php";
+        String url = "http://10.0.2.2/ecopower/register.php";
 
         Ion.with(this)
                 .load("POST", url)

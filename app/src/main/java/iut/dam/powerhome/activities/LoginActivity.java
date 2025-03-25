@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
-        String url = "http://192.168.1.67/ecopower/login.php";
+        String url = "http://10.0.2.2/ecopower/login.php";
 
         Ion.with(this)
                 .load("POST", url)

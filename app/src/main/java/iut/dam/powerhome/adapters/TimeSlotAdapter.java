@@ -9,30 +9,17 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import entities.TimeSlot;
 import iut.dam.powerhome.R;
 
 public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSlotViewHolder> {
     private Context context;
-    private List<TimeSlot> timeSlots;
-    private OnTimeSlotClickListener listener;
+    private List<String> timeSlots = Arrays.asList("9h00", "11h00", "13h00", "15h00", "17h00", "19h00", "21h00", "23h00");
 
-    public interface OnTimeSlotClickListener {
-        void onTimeSlotClick(TimeSlot timeSlot);
-    }
-
-    public TimeSlotAdapter(Context context, List<TimeSlot> timeSlots, OnTimeSlotClickListener listener) {
+    public TimeSlotAdapter(Context context) {
         this.context = context;
-        this.timeSlots = timeSlots != null ? timeSlots : new ArrayList<>();
-        this.listener = listener;
-    }
-
-    public void updateTimeSlots(List<TimeSlot> newTimeSlots) {
-        this.timeSlots = newTimeSlots;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -44,32 +31,9 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
 
     @Override
     public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
-        TimeSlot timeSlot = timeSlots.get(position);
-        String timeText = String.format("%tHh%tM", timeSlot.begin, timeSlot.begin);
-        holder.timeSlotButton.setText(timeText);
-
-        // Désactiver si complet
-        if (timeSlot.getUsedWattage() >= timeSlot.maxWattage) {
-            holder.timeSlotButton.setEnabled(false);
-            holder.timeSlotButton.setBackgroundResource(R.drawable.day_background_empty);
-        } else {
-            holder.timeSlotButton.setEnabled(true);
-
-            // Couleur en fonction du pourcentage d'utilisation
-            double percentage = (double)timeSlot.getUsedWattage() / timeSlot.maxWattage * 100;
-            if (percentage > 70) {
-                holder.timeSlotButton.setBackgroundResource(R.drawable.day_background_red);
-            } else if (percentage > 30) {
-                holder.timeSlotButton.setBackgroundResource(R.drawable.day_background_orange);
-            } else {
-                holder.timeSlotButton.setBackgroundResource(R.drawable.day_background);
-            }
-        }
-
+        holder.timeSlotButton.setText(timeSlots.get(position));
         holder.timeSlotButton.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onTimeSlotClick(timeSlot);
-            }
+            // Gérer le clic sur le créneau horaire
         });
     }
 

@@ -10,9 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import iut.dam.powerhome.R;
 
@@ -22,15 +19,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     private int selectedPosition = -1;
     private int startDayOfWeek;
     private int daysInMonth;
-    private OnDayClickListener listener;
 
-    public interface OnDayClickListener {
-        void onDayClick(int day);
-    }
-
-    public CalendarAdapter(Context context, Calendar calendar, OnDayClickListener listener) {
+    public CalendarAdapter(Context context, Calendar calendar) {
         this.context = context;
-        this.listener = listener;
         setCalendar(calendar);
     }
 
@@ -58,34 +49,19 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         if (position < startDayOfWeek - 1 || position >= startDayOfWeek - 1 + daysInMonth) {
             holder.dayTextView.setText("");
-            holder.itemView.setBackgroundResource(R.drawable.day_background_empty);
+            holder.itemView.setActivated(false);
+            holder.itemView.setSelected(false);
             holder.itemView.setClickable(false);
+            holder.itemView.setBackgroundResource(R.drawable.day_background_empty);
         } else {
             int day = position - (startDayOfWeek - 2);
             holder.dayTextView.setText(String.valueOf(day));
+            holder.itemView.setActivated(position == selectedPosition);
             holder.itemView.setClickable(true);
-
-            // Appliquer la couleur en fonction du wattage
-            if (dayWattageMap.containsKey(day)) {
-                int wattage = dayWattageMap.get(day);
-                double percentage = (double)wattage / 5000 * 100; // 5000W = max théorique
-
-                if (percentage > 70) {
-                    holder.itemView.setBackgroundResource(R.drawable.day_background_red);
-                } else if (percentage > 30) {
-                    holder.itemView.setBackgroundResource(R.drawable.day_background_orange);
-                } else {
-                    holder.itemView.setBackgroundResource(R.drawable.day_background);
-                }
-            } else {
-                holder.itemView.setBackgroundResource(R.drawable.day_background);
-            }
-
+            holder.itemView.setBackgroundResource(R.drawable.day_background);
             holder.itemView.setOnClickListener(v -> {
                 selectedPosition = position;
-                if (listener != null) {
-                    listener.onDayClick(day);
-                }
+                notifyDataSetChanged();
             });
         }
     }
@@ -103,12 +79,4 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
             dayTextView = itemView.findViewById(R.id.dayTextView);
         }
     }
-    private Map<Integer, Integer> dayWattageMap = new HashMap<>();
-
-    public void setDayWattageMap(Map<Integer, Integer> dayWattageMap) {
-        this.dayWattageMap = dayWattageMap;
-        notifyDataSetChanged();
-    }
-
-
 }
