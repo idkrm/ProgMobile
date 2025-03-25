@@ -52,6 +52,7 @@
     <string name="back">Back</string>
     <string name="save">Save</string>
     <string name="next_month" translatable="false"><![CDATA[>]]></string>
+    <string name="welcome">Welcome 👋</string>
 
 
 </resources>
