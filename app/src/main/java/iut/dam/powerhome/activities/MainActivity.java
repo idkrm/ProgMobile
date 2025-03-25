@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FragmentManager fm;
     private DrawerLayout drawer;
     private NavigationView nav;
-    String urlString = "http://10.125.132.129/powerhome_server/getHabitats.php";
-    ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

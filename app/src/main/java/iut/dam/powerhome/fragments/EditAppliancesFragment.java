@@ -238,7 +238,7 @@ public class EditAppliancesFragment extends Fragment {
         }
 
         // Envoi au serveur avec débogage amélioré
-        String url = "http://192.168.1.67/ecopower/updateAppliances.php";
+        String url = "http://10.0.2.2/ecopower/updateAppliances.php";
 
         Ion.with(this)
                 .load(url)

@@ -34,7 +34,7 @@
             android:id="@+id/nextMonthButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next"/>
+            android:text="@string/next_month"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

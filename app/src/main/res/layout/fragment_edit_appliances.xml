@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".fragments.EditAppliancesFragment"
     android:layout_marginTop="20dp">
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -25,32 +25,28 @@
             android:paddingHorizontal="10dp"
             android:textColor="@color/white"
             android:layout_marginBottom="10dp"
-            android:layout_below="@id/editAppliancesContainer"
-            android:layout_alignStart="@id/backsave"
-            android:layout_alignEnd="@id/backsave"
             android:text="@string/add_appliances"/>
 
         <LinearLayout
-            android:id="@+id/backsave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_below="@id/btnAddAppliance">
-            <Button
-                android:id="@+id/btnBack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rect3"
-                android:text="@string/back"
-                android:layout_marginRight="5dp"/>
-            <Button
-                android:id="@+id/btnSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rect"
-                android:textColor="@color/white"
-                android:layout_marginLeft="5dp"
-                android:text="@string/save"/>
+            android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@drawable/rect3"
+            android:text="@string/back"
+            android:layout_marginEnd="5dp"/>
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect"
+            android:textColor="@color/white"
+            android:layout_marginStart="5dp"
+            android:text="@string/save"/>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>
