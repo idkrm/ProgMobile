@@ -110,12 +110,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time slots"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/joli_vert"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/timeSlotsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:listitem="@layout/item_time_slot"/>
+        tools:listitem="@layout/item_time_slot"
+        android:layout_gravity="center"/>
     </LinearLayout>
 </LinearLayout>

@@ -79,7 +79,7 @@ public class EditAppliancesFragment extends Fragment {
     }
 
     private void fetchUserAppliances(String email, String password) {
-        String url = "http://192.168.1.67/ecopower/getUserData.php";
+        String url = "http://10.0.2.2/ecopower/getUserData.php";
 
         Ion.with(this)
                 .load(url)

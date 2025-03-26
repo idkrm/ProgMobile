@@ -12,6 +12,7 @@ drawerlayout = "1.1.1"
 materialVersion = "1.5.0"
 ion = "3.1.0"
 gson = "2.12.1"
+volley = "1.2.1"
 
 [libraries]
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt" }
@@ -26,6 +27,7 @@ drawerlayout = { group = "androidx.drawerlayout", name = "drawerlayout", version
 google-material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 ion = { group = "com.koushikdutta.ion", name = "ion", version.ref = "ion" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+volley = { module = "com.android.volley:volley", version.ref = "volley" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

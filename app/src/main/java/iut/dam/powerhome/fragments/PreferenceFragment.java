@@ -69,7 +69,7 @@ public class PreferenceFragment extends Fragment {
 
     private void setupTimeSlots() {
         timeSlotAdapter = new TimeSlotAdapter(getContext());
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         timeSlotsRecyclerView.setLayoutManager(layoutManager);
         timeSlotsRecyclerView.setAdapter(timeSlotAdapter);
         timeSlotsRecyclerView.setVisibility(View.GONE);
