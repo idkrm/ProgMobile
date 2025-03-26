@@ -20,5 +20,9 @@
         android:id="@+id/menu_deco"
         android:title="@string/se_d_connecter"
         android:icon="@drawable/img_deco"/>
+    <item
+        android:id="@+id/menu_about"
+        android:title="@string/about"
+        android:icon="@drawable/img_about"/>
 
 </menu>

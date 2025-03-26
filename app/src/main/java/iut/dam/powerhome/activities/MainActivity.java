@@ -1,16 +1,17 @@
 package iut.dam.powerhome.activities;
 
-import android.app.ProgressDialog;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -26,8 +27,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.navigation.NavigationView;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import iut.dam.powerhome.R;
 import iut.dam.powerhome.fragments.HabitatFragment;
@@ -94,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             handleLogout();
             drawer.closeDrawer(GravityCompat.START);
             return true;
+        }else if(itemId == R.id.menu_about){
+            aboutDialog();
+            return true;
         } else {
             drawer.closeDrawer(GravityCompat.START);
             return false;
@@ -132,6 +134,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             );
             getSupportActionBar().setTitle(spannableString);
+        }
+    }
+
+    private void aboutDialog(){
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+
+            String message = getString(R.string.app_name) + "\n\n"
+                    + "Version : " + version + "\n\n"
+                    + "Développeuses :\n    - Priscilla Chen\n    - Irène Xu\n    - Lucie Yan\n\n"
+                    + "Merci d'utiliser notre application !";
+
+            new AlertDialog.Builder(this)
+                    .setTitle("À propos")
+                    .setMessage(message)
+                    .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                    .setIcon(R.drawable.vrailogo)
+                    .show();
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

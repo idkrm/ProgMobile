@@ -19,10 +19,18 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     private int selectedPosition = -1;
     private int startDayOfWeek;
     private int daysInMonth;
+    private OnDayClickListener dayClickListener;
 
     public CalendarAdapter(Context context, Calendar calendar) {
         this.context = context;
         setCalendar(calendar);
+    }
+    public interface OnDayClickListener {
+        void onDayClick(int day, int month, int year);
+    }
+
+    public void setOnDayClickListener(OnDayClickListener listener) {
+        this.dayClickListener = listener;
     }
 
     public void setCalendar(Calendar calendar) {
@@ -64,6 +72,18 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
                 notifyDataSetChanged();
             });
         }
+        holder.itemView.setOnClickListener(v -> {
+            selectedPosition = position;
+            notifyDataSetChanged();
+
+            // Ajoutez ceci pour notifier le fragment
+            if (dayClickListener != null) {
+                int day = position - (startDayOfWeek - 2);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                dayClickListener.onDayClick(day, month, year);
+            }
+        });
     }
 
     @Override

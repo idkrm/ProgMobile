@@ -10,12 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import iut.dam.powerhome.R;
 
 public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSlotViewHolder> {
     private Context context;
+    private Date selectedDate;
     private List<String> timeSlots = Arrays.asList("9h00", "11h00", "13h00", "15h00", "17h00", "19h00", "21h00", "23h00");
 
     public TimeSlotAdapter(Context context) {
@@ -28,7 +30,10 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
         View view = LayoutInflater.from(context).inflate(R.layout.item_time_slot, parent, false);
         return new TimeSlotViewHolder(view);
     }
-
+    public void setSelectedDate(Date date) {
+        this.selectedDate = date;
+        notifyDataSetChanged(); // Rafraîchir les créneaux
+    }
     @Override
     public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
         holder.timeSlotButton.setText(timeSlots.get(position));

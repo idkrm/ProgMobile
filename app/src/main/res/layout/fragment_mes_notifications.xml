@@ -4,14 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.NotificationsFragment"
-    android:layout_margin="20dp">
+    android:layout_margin="20dp"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:text="@string/mes_notifications"
-        android:textColor="@color/joli_vert"/>
-
+        android:text="@string/no_notification"/>
 </LinearLayout>

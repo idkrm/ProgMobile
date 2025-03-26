@@ -26,7 +26,9 @@ public class TimeSlot {
     public int getUsedWattage() {
         return bookings.stream().mapToInt(b -> b.appliance.getWattage()).sum();
     }
-
+    public int getAvailableWattage() {
+        return maxWattage - getUsedWattage();
+    }
     public double getUsagePercentage() {
         return (double)getUsedWattage() / maxWattage * 100;
     }

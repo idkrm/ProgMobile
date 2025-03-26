@@ -49,8 +49,12 @@
     <string name="total_consumption">Consumo total</string>
     <string name="floor">Suelo</string>
     <string name="add_appliances">Add Appliances</string>
-    <string name="back">Back</string>
-    <string name="save">Save</string>
+    <string name="back">Volver</string>
+    <string name="save">Guardar</string>
     <string name="welcome">Bienvenido 👋</string>
+    <string name="no_notification">Ninguna notificación</string>
+    <string name="about">Acerca</string>
+    <string name="confirm_e_mail">Confirmar e-mail</string>
+    <string name="confirm_password">Confirmar contraseña</string>
 
 </resources>

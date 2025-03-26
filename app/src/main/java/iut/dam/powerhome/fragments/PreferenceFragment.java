@@ -50,6 +50,18 @@ public class PreferenceFragment extends Fragment {
 
     private void setupCalendar() {
         calendarAdapter = new CalendarAdapter(getContext(), currentCalendar);
+
+        // Ajoutez ce listener
+        calendarAdapter.setOnDayClickListener((day, month, year) -> {
+            // Afficher les créneaux horaires
+            timeSlotsRecyclerView.setVisibility(View.VISIBLE);
+
+            // Mettre à jour la date sélectionnée dans timeSlotAdapter
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, day);
+            timeSlotAdapter.setSelectedDate(selectedDate.getTime());
+        });
+
         calendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
         calendarRecyclerView.setAdapter(calendarAdapter);
         updateMonthYear();
@@ -60,6 +72,7 @@ public class PreferenceFragment extends Fragment {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 3);
         timeSlotsRecyclerView.setLayoutManager(layoutManager);
         timeSlotsRecyclerView.setAdapter(timeSlotAdapter);
+        timeSlotsRecyclerView.setVisibility(View.GONE);
     }
 
     private void setupMonthNavigation() {
