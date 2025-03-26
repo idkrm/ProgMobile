@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             String message = getString(R.string.app_name) + "\n\n"
                     + "Version : " + version + "\n\n"
-                    + "Développeuses :\n    - Priscilla Chen\n    - Irène Xu\n    - Lucie Yan\n\n"
+                    + "Développeuses :\n    - Priscilla Chen\n    - Lucie Yan\n    - Irène Xu\n\n"
                     + "Merci d'utiliser notre application !";
 
             new AlertDialog.Builder(this)

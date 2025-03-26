@@ -107,10 +107,15 @@
         android:layout_marginBottom="16dp"/>
 
     <!-- RecyclerView pour les créneaux horaires -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/timeSlotsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         tools:listitem="@layout/item_time_slot"/>
+    </LinearLayout>
 </LinearLayout>
