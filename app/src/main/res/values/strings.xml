@@ -57,6 +57,7 @@
     <string name="about">About</string>
     <string name="confirm_e_mail">Confirm e-mail</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="edit_profile">Edit profile</string>
 
 
 </resources>

@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import iut.dam.powerhome.R;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button creerCompte, connecter;
+    private Button creerCompte, connecter, mdpOublie;
     private EditText mail, mdp;
 
     @SuppressLint("MissingInflatedId")
@@ -48,6 +48,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mdpOublie = findViewById(R.id.btnForgot);
+        mdpOublie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });

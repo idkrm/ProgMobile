@@ -28,7 +28,7 @@ public class MonHabitatFragment extends Fragment {
     private TextView nomPersonne, prenomPersonne, adressePersonne, telPersonne, consommationPersonne;
     private int consommationTotale = 0;
     private TextView etagePersonne, areaPersonne, appliancePersonne;
-    private Button btnEdit;
+    private Button btnEdit, btnEditProfile;
     private SharedPreferences sharedPreferences;
 
     @Override
@@ -58,6 +58,17 @@ public class MonHabitatFragment extends Fragment {
             }
         });
 
+    btnEditProfile = view.findViewById(R.id.btnEditProfile);
+    btnEditProfile.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            EditProfileFragment fragment = new EditProfileFragment();
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.contentFL, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+    });
 
         // Récupérer les infos de connexion
         sharedPreferences = getActivity().getSharedPreferences("user_session", Context.MODE_PRIVATE);
