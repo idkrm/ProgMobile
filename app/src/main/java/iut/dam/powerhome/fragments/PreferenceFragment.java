@@ -56,7 +56,7 @@ public class PreferenceFragment extends Fragment {
             // Afficher les créneaux horaires
             timeSlotsRecyclerView.setVisibility(View.VISIBLE);
 
-            // Mettre à jour la date sélectionnée dans timeSlotAdapter
+            // Mettre à jour la date sélectionnée
             Calendar selectedDate = Calendar.getInstance();
             selectedDate.set(year, month, day);
             timeSlotAdapter.setSelectedDate(selectedDate.getTime());
@@ -90,6 +90,8 @@ public class PreferenceFragment extends Fragment {
     private void updateCalendar() {
         calendarAdapter.setCalendar(currentCalendar);
         updateMonthYear();
+        timeSlotsRecyclerView.setVisibility(View.GONE); // Cache les time slots
+        calendarAdapter.setSelectedDate(null); // Réinitialise la sélection
     }
 
     private void updateMonthYear() {

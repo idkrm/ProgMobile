@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import iut.dam.powerhome.R;
 
@@ -20,11 +21,17 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
     private int startDayOfWeek;
     private int daysInMonth;
     private OnDayClickListener dayClickListener;
+    private Date selectedDate;
 
     public CalendarAdapter(Context context, Calendar calendar) {
         this.context = context;
         setCalendar(calendar);
     }
+
+    public void setSelectedDate(Date time) {
+        this.selectedDate = time;
+    }
+
     public interface OnDayClickListener {
         void onDayClick(int day, int month, int year);
     }
