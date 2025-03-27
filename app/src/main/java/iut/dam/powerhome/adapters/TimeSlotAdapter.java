@@ -43,16 +43,18 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
     private List<TimeSlot> timeSlots = new ArrayList<>();
     private Date selectedDate;
     private SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.FRENCH);
+    private SharedPreferences sharedPreferences;
+    private List<Appliance> userAppliances;
 
-    public TimeSlotAdapter(Context context) {
+    public TimeSlotAdapter(Context context, List<Appliance> userAppliances) {
         this.context = context;
+        this.userAppliances = userAppliances;
+        this.sharedPreferences = context.getSharedPreferences("TimeSlotPrefs", Context.MODE_PRIVATE);
         initTimeSlots();
     }
 
     private void initTimeSlots() {
-        if (selectedDate == null) {
-            return;
-        }
+        if (selectedDate == null) return;
 
         try {
             timeSlots.clear();
@@ -60,7 +62,7 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
             Calendar cal = Calendar.getInstance();
             cal.setTime(selectedDate);
 
-            // Générer les 12 créneaux de 2h pour la date sélectionnée
+            // génère les créneaux
             for (int i = 0; i < 12; i++) {
                 Calendar startCal = (Calendar) cal.clone();
                 startCal.set(Calendar.HOUR_OF_DAY, i * 2);
@@ -75,11 +77,106 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
                 timeSlots.add(new TimeSlot(start, end, 250));
             }
 
+            // charge les réservations déjà faites
+            loadReservations();
+
             fetchReservationsForDate(selectedDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+    private void loadReservations() {
+        if (selectedDate == null) return;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+        String dateKey = dateFormat.format(selectedDate);
+        String reservationsJson = sharedPreferences.getString(dateKey, null);
+
+        if (reservationsJson != null) {
+            try {
+                JSONObject reservationsData = new JSONObject(reservationsJson);
+                JSONArray slotsArray = reservationsData.getJSONArray("slots");
+
+                for (int i = 0; i < slotsArray.length(); i++) {
+                    JSONObject slotJson = slotsArray.getJSONObject(i);
+                    String slotKey = slotJson.getString("slot_key");
+
+                    for (TimeSlot slot : timeSlots) {
+                        if (slot.getSlotKey().equals(slotKey)) {
+                            JSONArray bookingsArray = slotJson.getJSONArray("bookings");
+                            List<Booking> bookings = new ArrayList<>();
+
+                            for (int j = 0; j < bookingsArray.length(); j++) {
+                                JSONObject bookingJson = bookingsArray.getJSONObject(j);
+                                int applianceId = bookingJson.getInt("appliance_id");
+                                Appliance appliance = findApplianceById(applianceId);
+
+                                if (appliance != null) {
+                                    Booking booking = new Booking();
+                                    booking.appliance = appliance;
+                                    booking.timeSlot = slot;
+                                    bookings.add(booking);
+                                }
+                            }
+
+                            slot.setBookings(bookings);
+                            break;
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private Appliance findApplianceById(int id) {
+        for (Appliance appliance : userAppliances) {
+            if (appliance.getId() == id) {
+                return appliance;
+            }
+        }
+        return null;
+    }
+
+    public void setSelectedDate(Date date) {
+        this.selectedDate = date;
+        initTimeSlots();
+        notifyDataSetChanged();
+    }
+    private void saveReservations() {
+        if (selectedDate == null || timeSlots.isEmpty()) return;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
+        String dateKey = dateFormat.format(selectedDate);
+
+        JSONObject reservationsData = new JSONObject();
+        try {
+            JSONArray slotsArray = new JSONArray();
+
+            for (TimeSlot slot : timeSlots) {
+                JSONObject slotJson = new JSONObject();
+                slotJson.put("slot_key", slot.getSlotKey());
+
+                JSONArray bookingsArray = new JSONArray();
+                for (Booking booking : slot.getBookings()) {
+                    JSONObject bookingJson = new JSONObject();
+                    bookingJson.put("appliance_id", booking.appliance.getId());
+                    bookingsArray.put(bookingJson);
+                }
+
+                slotJson.put("bookings", bookingsArray);
+                slotsArray.put(slotJson);
+            }
+
+            reservationsData.put("slots", slotsArray);
+            sharedPreferences.edit()
+                    .putString(dateKey, reservationsData.toString())
+                    .apply();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void fetchReservationsForDate(Date date) {
         String url = "http://10.0.2.2/ecopower/getReservationsByDate.php";
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH);
@@ -101,7 +198,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
                             if (jsonResponse.getString("status").equals("success")) {
                                 JSONArray reservations = jsonResponse.getJSONArray("reservations");
 
-                                // Clear only if server sync is successful
                                 for (TimeSlot slot : timeSlots) {
                                     slot.getBookings().clear();
                                 }
@@ -141,13 +237,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
                 });
     }
 
-    private Date createDateTime(int day, int month, int year, int hour, int minute) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(year, month, day, hour, minute, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTime();
-    }
-
     @NonNull
     @Override
     public TimeSlotViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -161,7 +250,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
         String timeText = timeFormat.format(timeSlot.getBegin()) + " - " + timeFormat.format(timeSlot.getEnd());
         holder.timeSlotButton.setText(timeText);
 
-        // Calcul du pourcentage d'utilisation
         double usagePercentage = timeSlot.getUsagePercentage();
         int colorResId;
 
@@ -179,7 +267,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
             holder.timeSlotButton.setEnabled(true);
         }
 
-        // Appliquer la couleur
         holder.timeSlotButton.setBackgroundTintList(
                 ColorStateList.valueOf(ContextCompat.getColor(context, colorResId))
         );
@@ -195,7 +282,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Confirmation de réservation");
 
-        // msg avec date et créneau
         String message = "Voulez-vous réserver le créneau " + timeText;
         if (selectedDate != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
@@ -224,7 +310,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
     }
 
     private void fetchUserAppliances(TimeSlot timeSlot, String email, String password) {
-        // recup les appliances du user
         String url = "http://10.0.2.2/ecopower/getUserAppliances.php";
 
         Ion.with(context)
@@ -332,13 +417,11 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
     private void sendReservationToServer(TimeSlot timeSlot, List<Appliance> appliances) {
         String url = "http://10.0.2.2/ecopower/addReservation.php";
 
-        // Formatage des dates pour le serveur
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.FRENCH);
         String startTime = dateFormat.format(timeSlot.getBegin());
         String endTime = dateFormat.format(timeSlot.getEnd());
         int maxWattage = timeSlot.getMaxWattage();
 
-        // Préparation des données
         JSONArray appliancesArray = new JSONArray();
         for (Appliance appliance : appliances) {
             JSONObject appJson = new JSONObject();
@@ -351,7 +434,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
             }
         }
 
-        // Récupération des infos utilisateur
         SharedPreferences sharedPreferences = context.getSharedPreferences("user_session", Context.MODE_PRIVATE);
         String email = sharedPreferences.getString("email", "");
 
@@ -368,36 +450,26 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
                     @Override
                     public void onCompleted(Exception e, String result) {
                         if (e != null) {
-                            Log.e("ReservationError", "Network error", e);
-                            Toast.makeText(context, "Erreur réseau: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             return;
                         }
-
-                        Log.d("ServerResponse", "Response: " + result);
 
                         try {
                             JSONObject response = new JSONObject(result);
                             if ("success".equals(response.getString("status"))) {
-                                // Mise à jour locale après succès serveur
+                                // Mise à jour locale
                                 for (Appliance appliance : appliances) {
                                     Booking booking = new Booking();
                                     booking.appliance = appliance;
                                     booking.timeSlot = timeSlot;
                                     timeSlot.getBookings().add(booking);
                                 }
-                                notifyDataSetChanged();
 
+                                saveReservations();
+
+                                notifyDataSetChanged();
                                 Toast.makeText(context, "Réservation enregistrée", Toast.LENGTH_SHORT).show();
-                            } else {
-                                String message = response.optString("message", "Erreur inconnue");
-                                Log.e("ReservationError", "Server error: " + message);
-                                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-                                fetchReservationsForDate(selectedDate);
                             }
                         } catch (JSONException ex) {
-                            Log.e("ReservationError", "JSON parsing error. Response: " + result, ex);
-                            Toast.makeText(context, "Erreur de traitement: " + ex.getMessage(), Toast.LENGTH_LONG).show();
-                            fetchReservationsForDate(selectedDate);
                         }
                     }
                 });
@@ -406,12 +478,6 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
     @Override
     public int getItemCount() {
         return timeSlots.size();
-    }
-
-    public void setSelectedDate(Date date) {
-        this.selectedDate = date;
-        initTimeSlots();
-        notifyDataSetChanged();
     }
 
     static class TimeSlotViewHolder extends RecyclerView.ViewHolder {

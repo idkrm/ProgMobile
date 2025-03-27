@@ -14,9 +14,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
+import entities.Appliance;
 import iut.dam.powerhome.R;
 import iut.dam.powerhome.adapters.CalendarAdapter;
 import iut.dam.powerhome.adapters.TimeSlotAdapter;
@@ -29,6 +33,7 @@ public class PreferenceFragment extends Fragment {
     private CalendarAdapter calendarAdapter;
     private TimeSlotAdapter timeSlotAdapter;
     private Calendar currentCalendar = Calendar.getInstance();
+    private List<Appliance> userAppliances = new ArrayList<>();
 
     @Nullable
     @Override
@@ -51,12 +56,10 @@ public class PreferenceFragment extends Fragment {
     private void setupCalendar() {
         calendarAdapter = new CalendarAdapter(getContext(), currentCalendar);
 
-        // Ajoutez ce listener
         calendarAdapter.setOnDayClickListener((day, month, year) -> {
-            // Afficher les créneaux horaires
+            // affiche les créneaux
             timeSlotsRecyclerView.setVisibility(View.VISIBLE);
 
-            // Mettre à jour la date sélectionnée
             Calendar selectedDate = Calendar.getInstance();
             selectedDate.set(year, month, day);
             timeSlotAdapter.setSelectedDate(selectedDate.getTime());
@@ -68,7 +71,7 @@ public class PreferenceFragment extends Fragment {
     }
 
     private void setupTimeSlots() {
-        timeSlotAdapter = new TimeSlotAdapter(getContext());
+        timeSlotAdapter = new TimeSlotAdapter(getContext(), userAppliances); // Passer la liste des appareils
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         timeSlotsRecyclerView.setLayoutManager(layoutManager);
         timeSlotsRecyclerView.setAdapter(timeSlotAdapter);
@@ -90,8 +93,8 @@ public class PreferenceFragment extends Fragment {
     private void updateCalendar() {
         calendarAdapter.setCalendar(currentCalendar);
         updateMonthYear();
-        timeSlotsRecyclerView.setVisibility(View.GONE); // Cache les time slots
-        calendarAdapter.setSelectedDate(null); // Réinitialise la sélection
+        timeSlotsRecyclerView.setVisibility(View.GONE);
+        calendarAdapter.setSelectedDate(null);
     }
 
     private void updateMonthYear() {
