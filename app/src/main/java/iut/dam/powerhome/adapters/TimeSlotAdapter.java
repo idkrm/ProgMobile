@@ -247,7 +247,8 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
     @Override
     public void onBindViewHolder(@NonNull TimeSlotViewHolder holder, int position) {
         TimeSlot timeSlot = timeSlots.get(position);
-        String timeText = timeFormat.format(timeSlot.getBegin()) + " - " + timeFormat.format(timeSlot.getEnd());
+        String timeText = timeFormat.format(timeSlot.getBegin()) + " - " + timeFormat.format(timeSlot.getEnd())
+                    + "\n" + timeSlot.getUsedWattage() + "/" + timeSlot.getMaxWattage() + "W";
         holder.timeSlotButton.setText(timeText);
 
         double usagePercentage = timeSlot.getUsagePercentage();
@@ -273,7 +274,8 @@ public class TimeSlotAdapter extends RecyclerView.Adapter<TimeSlotAdapter.TimeSl
 
         holder.timeSlotButton.setOnClickListener(v -> {
             if (usagePercentage < 100) {
-                showReservationDialog(timeSlot, timeText);
+                showReservationDialog(timeSlot,
+                        timeFormat.format(timeSlot.getBegin()) + " - " + timeFormat.format(timeSlot.getEnd()));
             }
         });
     }

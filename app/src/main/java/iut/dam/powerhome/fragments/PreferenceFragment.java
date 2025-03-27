@@ -57,12 +57,29 @@ public class PreferenceFragment extends Fragment {
         calendarAdapter = new CalendarAdapter(getContext(), currentCalendar);
 
         calendarAdapter.setOnDayClickListener((day, month, year) -> {
-            // affiche les créneaux
-            timeSlotsRecyclerView.setVisibility(View.VISIBLE);
+            // Créer un Calendar pour la date sélectionnée
+            Calendar selectedDateCal = Calendar.getInstance();
+            selectedDateCal.set(year, month, day);
 
-            Calendar selectedDate = Calendar.getInstance();
-            selectedDate.set(year, month, day);
-            timeSlotAdapter.setSelectedDate(selectedDate.getTime());
+            // Créer un Calendar pour le mois affiché (sans le jour)
+            Calendar currentMonthCal = Calendar.getInstance();
+            currentMonthCal.setTime(currentCalendar.getTime());
+            currentMonthCal.set(Calendar.DAY_OF_MONTH, 1);
+
+            // Comparer année et mois
+            if (selectedDateCal.get(Calendar.YEAR) == currentMonthCal.get(Calendar.YEAR) &&
+                    selectedDateCal.get(Calendar.MONTH) == currentMonthCal.get(Calendar.MONTH)) {
+
+                // Afficher seulement si c'est le mois courant
+                timeSlotsRecyclerView.setVisibility(View.VISIBLE);
+
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.set(year, month, day);
+                timeSlotAdapter.setSelectedDate(selectedDate.getTime());
+            } else {
+                // Cacher si c'est un autre mois
+                timeSlotsRecyclerView.setVisibility(View.GONE);
+            }
         });
 
         calendarRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));

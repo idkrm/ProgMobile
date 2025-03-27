@@ -73,7 +73,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Calend
             holder.dayTextView.setText(String.valueOf(day));
             holder.itemView.setActivated(position == selectedPosition);
             holder.itemView.setClickable(true);
-            holder.itemView.setBackgroundResource(R.drawable.day_background);
+            holder.itemView.setBackgroundResource(R.drawable.contour_day);
             holder.itemView.setOnClickListener(v -> {
                 selectedPosition = position;
                 notifyDataSetChanged();
