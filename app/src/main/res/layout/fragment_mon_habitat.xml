@@ -7,6 +7,9 @@
     tools:context=".fragments.MonHabitatFragment"
     android:layout_margin="20dp">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -245,6 +248,6 @@
             android:paddingHorizontal="10dp"
             android:textColor="@color/white"/>
     </LinearLayout>
-
+    </ScrollView>
 
 </LinearLayout>
