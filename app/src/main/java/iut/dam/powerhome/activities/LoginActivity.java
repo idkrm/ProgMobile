@@ -111,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putString("password", password);
                                 editor.apply();
 
-                                Toast.makeText(LoginActivity.this, "Connexion réussie !", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Successful connection !", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class); // Redirection vers MainActivity
                                 startActivity(intent);
                                 finish();

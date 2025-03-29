@@ -144,11 +144,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             String message = getString(R.string.app_name) + "\n\n"
                     + "Version : " + version + "\n\n"
-                    + "Développeuses :\n    - Priscilla Chen\n    - Lucie Yan\n    - Irène Xu\n\n"
-                    + "Merci d'utiliser notre application !";
+                    + "Developers :\n    - Priscilla Chen\n    - Lucie Yan\n    - Irène Xu\n\n"
+                    + "Thank you for using our application !";
 
             new AlertDialog.Builder(this)
-                    .setTitle("À propos")
+                    .setTitle("About")
                     .setMessage(message)
                     .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
                     .setIcon(R.drawable.vrailogo)
